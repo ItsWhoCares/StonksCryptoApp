@@ -1,13 +1,40 @@
 {
   "expo": {
-    "scheme": "acme",
-    "web": {
-      "bundler": "metro"
+    "name": "StonksCrypto",
+    "slug": "StonksCryptoApp",
+    "version": "1.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo1024.png",
+    "userInterfaceStyle": "light",
+    "scheme": "your-app-scheme",
+    "splash": {
+      "image": "./assets/logo1024.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1c1917"
     },
-    "plugins": [
-      "expo-router"
-    ],
-    "name": "StonksCryptoApp",
-    "slug": "StonksCryptoApp"
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#1c1917",
+      "barStyle": "light-content"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.whocares.StonksCryptoApp"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "00a452f5-80c6-4b5a-8eb5-bbbc57135f94"
+      }
+    },
+    "plugins": ["expo-router"]
   }
 }
