@@ -4,10 +4,9 @@ import { StyleSheet } from "react-native";
 import "../FoundationConfig";
 import "../ComponentConfig";
 
-import React from "react";
+import React, { useRef, useState } from "react";
 import {
   View,
-  Text,
   Card,
   Button,
   LoaderScreen,
@@ -23,7 +22,12 @@ import { Colors } from "react-native-ui-lib";
 import { AntDesign } from "@expo/vector-icons";
 import { Link, Stack, router } from "expo-router";
 
+import Text from "../components/CText";
+import { handleLogin } from "../Helpers/authHelpers";
+
 export default function LogIn() {
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
   return (
     <View flex padding-page marginT-20 bg-card useSafeArea={true}>
       <StatusBar style="light" backgroundColor={Colors.card} />
@@ -92,15 +96,14 @@ export default function LogIn() {
           color: Colors.background,
           paddingVertical: 10,
         }}
+        onChangeText={(value) => setEmail(value)}
         placeholder="m@example.com"
         placeholderTextColor={Colors.mutedForeground}
         fieldStyle={styles.withFrame}
         foreground
-        // preset={preset}
-        // editable={!shouldDisable}
-        // readonly={isReadonly}
       />
       <TextField
+        onChangeText={(value) => setPass(value)}
         label="Password"
         labelStyle={styles.labelStyle}
         containerStyle={{
@@ -111,19 +114,23 @@ export default function LogIn() {
         placeholderTextColor={Colors.mutedForeground}
         fieldStyle={styles.withFrame}
         foreground
-
-        // preset={preset}
-        // editable={!shouldDisable}
-        // readonly={isReadonly}
+        secureTextEntry
       />
       <Button
         label={"Log In"}
-        onPress={() => router.replace("/Home/Markets")}
+        onPress={() =>
+          handleLogin({
+            email,
+            pass,
+          })
+        }
         br20
         size={Button.sizes.large}
         backgroundColor={Colors.primaryColor}
         marginT-10
         primaryForeground
+        // animateTo="right"
+        // animateLayout
         // margin={20}
       />
       {/* <Text
@@ -206,5 +213,6 @@ const styles = StyleSheet.create({
     color: Colors.foreground,
     fontSize: 18,
     paddingBottom: 6,
+    fontFamily: "RubikReg",
   },
 });

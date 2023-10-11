@@ -114,6 +114,7 @@ export default function SignUp() {
         placeholderTextColor={Colors.mutedForeground}
         fieldStyle={styles.withFrame}
         foreground
+        secureTextEntry
 
         // preset={preset}
         // editable={!shouldDisable}

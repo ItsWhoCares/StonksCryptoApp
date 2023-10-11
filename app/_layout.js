@@ -11,21 +11,8 @@ import { useFonts } from "expo-font";
 import CText from "../components/CText";
 
 export default function Layout() {
-  const [loaded, error] = useFonts({
-    RubikReg: require("../assets/fonts/Rubik-Regular.ttf"),
-    RubikLight: require("../assets/fonts/Rubik-Light.ttf"),
-    ...FontAwesome.font,
-  });
 
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
   useEffect(() => {
     StatusBar.setBackgroundColor(Colors.card);
     StatusBar.setBarStyle("light-content");

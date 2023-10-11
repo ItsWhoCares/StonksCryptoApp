@@ -2,6 +2,7 @@ import { View, Text, Colors } from "react-native-ui-lib";
 import React from "react";
 import { Stack, Tabs, router } from "expo-router";
 import { AntDesign } from "@expo/vector-icons";
+import { supabase } from "../../Helpers/supabase";
 
 const Home = () => {
   return (
@@ -14,7 +15,7 @@ const Home = () => {
           }
         }
       />
-      <Text onPress={() => router.replace("/LogIn")}>Home</Text>
+      <Text onPress={async () => await supabase.auth.signOut()}>Home</Text>
     </View>
   );
 };
