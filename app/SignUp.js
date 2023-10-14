@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import "../FoundationConfig";
 import "../ComponentConfig";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Card,
@@ -20,8 +20,16 @@ import { Colors } from "react-native-ui-lib";
 
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import { Link, Stack, router } from "expo-router";
+import { handleSignUp } from "../Helpers/authHelpers";
+import Modal from "../components/Modal";
+import { Toast } from "react-native-ui-lib/src/incubator";
 
 export default function SignUp() {
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [isError, setIsError] = useState(null);
+  const [toToast, setToToast] = useState(null);
+  const [msg, setMsg] = useState("");
   return (
     <View flex padding-page marginT-20 bg-card>
       <StatusBar style="light" backgroundColor={Colors.card} />
@@ -95,15 +103,14 @@ export default function SignUp() {
           color: Colors.background,
           paddingVertical: 10,
         }}
+        onChangeText={(value) => setEmail(value)}
         placeholder="m@example.com"
         placeholderTextColor={Colors.mutedForeground}
         fieldStyle={styles.withFrame}
         foreground
-        // preset={preset}
-        // editable={!shouldDisable}
-        // readonly={isReadonly}
       />
       <TextField
+        onChangeText={(value) => setPass(value)}
         label="Password"
         labelStyle={styles.labelStyle}
         containerStyle={{
@@ -115,10 +122,14 @@ export default function SignUp() {
         fieldStyle={styles.withFrame}
         foreground
         secureTextEntry
-
-        // preset={preset}
-        // editable={!shouldDisable}
-        // readonly={isReadonly}
+        validate={(value) => value.length > 6}
+        validationMessage="Password is too short"
+        validationMessagePosition={"bottom"}
+        validateOnChange
+        // validationMessageStyle={{
+        //   color: "red",
+        // }}
+        // onValidationFailed={() => console.log("f")}
       />
       <Button
         label={"Create account"}
@@ -127,7 +138,15 @@ export default function SignUp() {
         backgroundColor={Colors.primaryColor}
         marginT-10
         primaryForeground
-        // margin={20}
+        onPress={() => {
+          const res = handleSignUp({
+            email,
+            pass,
+            setIsError,
+            setToToast,
+            setMsg,
+          });
+        }}
       />
       <Text
         mutedForeground
@@ -153,17 +172,30 @@ export default function SignUp() {
         Already have an account? Log In
       </Text>
 
-      {/* <Card height={100} center padding-card marginB-s4>
-        <Text body>This is an example card </Text>
-      </Card>
-      <Card.Image
-        source={{
-          uri: "https://github.com/wix/react-native-ui-lib/blob/master/demo/src/assets/images/card-example.jpg",
-        }}
-        height={115}
+      <Modal
+        isVisible={isError}
+        message={isError?.message}
+        setVisible={setIsError}
       />
-      <LoaderScreen message={"Message goes here"} color={Colors.primaryColor} />
-      <Button label="Button" body bg-primaryColor square></Button> */}
+      <Toast
+        visible={toToast}
+        position={"top"}
+        autoDismiss={5000}
+        onDismiss={() => {
+          setToToast(false);
+          router.replace("/LogIn");
+        }}
+        message={msg}
+        swipeable
+        style={{
+          backgroundColor: Colors.card,
+          color: Colors.textColor,
+          borderColor: Colors.input,
+        }}
+        messageStyle={{
+          color: Colors.textColor,
+        }}
+      />
     </View>
   );
 }

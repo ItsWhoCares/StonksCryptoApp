@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 
 import "../FoundationConfig";
 import "../ComponentConfig";
@@ -24,10 +24,12 @@ import { Link, Stack, router } from "expo-router";
 
 import Text from "../components/CText";
 import { handleLogin } from "../Helpers/authHelpers";
+import Modal from "../components/Modal";
 
 export default function LogIn() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [isError, setIsError] = useState(null);
   return (
     <View flex padding-page marginT-20 bg-card useSafeArea={true}>
       <StatusBar style="light" backgroundColor={Colors.card} />
@@ -38,13 +40,7 @@ export default function LogIn() {
       </Text>
       <Text mutedForeground>Enter your email below to sign In</Text>
 
-      <View
-        style={{
-          flexDirection: "row",
-          //alignContent: "center",
-          justifyContent: "space-between",
-          paddingVertical: 15,
-        }}>
+      <View style={styles.OAuthBtnContainer}>
         <Button
           label={"Github"}
           br20
@@ -122,6 +118,7 @@ export default function LogIn() {
           handleLogin({
             email,
             pass,
+            setIsError,
           })
         }
         br20
@@ -129,22 +126,7 @@ export default function LogIn() {
         backgroundColor={Colors.primaryColor}
         marginT-10
         primaryForeground
-        // animateTo="right"
-        // animateLayout
-        // margin={20}
       />
-      {/* <Text
-        mutedForeground
-        center
-        margin-15
-        highlightString={["Terms of Service", "Privacy Policy"]}
-        highlightStyle={{
-          textDecorationLine: "underline",
-          color: Colors.primaryColor,
-        }}>
-        By creating an account, I agree to StonksCrypto's Terms of Service and
-        Privacy Policy.
-      </Text> */}
 
       <Text
         onPress={() => router.replace("/SignUp")}
@@ -157,18 +139,11 @@ export default function LogIn() {
         }}>
         Don't have an account? Sign Up
       </Text>
-
-      {/* <Card height={100} center padding-card marginB-s4>
-        <Text body>This is an example card </Text>
-      </Card>
-      <Card.Image
-        source={{
-          uri: "https://github.com/wix/react-native-ui-lib/blob/master/demo/src/assets/images/card-example.jpg",
-        }}
-        height={115}
+      <Modal
+        isVisible={isError}
+        message={isError?.message}
+        setVisible={setIsError}
       />
-      <LoaderScreen message={"Message goes here"} color={Colors.primaryColor} />
-      <Button label="Button" body bg-primaryColor square></Button> */}
     </View>
   );
 }
@@ -214,5 +189,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingBottom: 6,
     fontFamily: "RubikReg",
+  },
+  OAuthBtnContainer: {
+    flexDirection: "row",
+    //alignContent: "center",
+    justifyContent: "space-between",
+    paddingVertical: 15,
+  },
+  OAuthBtn: {
+    width: "45%",
+    justifyContent: "space-evenly",
   },
 });

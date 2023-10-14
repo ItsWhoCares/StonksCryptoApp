@@ -41,19 +41,7 @@ export default function App() {
     RubikLight: require("../assets/fonts/Rubik-Light.ttf"),
   });
 
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
-
-  useEffect(() => {
-    NavigationBar.setBackgroundColorAsync(Colors.card);
-    if (loaded) {
-      SplashScreen.hideAsync();
-      setTimeout(() => router.replace("/LogIn"));
-    }
-  }, [loaded]);
-
-  useEffect(() => {
+  const checkAuth = () => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
         router.replace("/Home");
@@ -66,11 +54,23 @@ export default function App() {
       if (session) {
         router.replace("/Home");
       } else {
-        console.log("no user");
+        console.log("no user listner");
         router.replace("/LogIn");
       }
     });
-  }, []);
+  };
+
+  useEffect(() => {
+    if (error) throw error;
+  }, [error]);
+
+  useEffect(() => {
+    NavigationBar.setBackgroundColorAsync(Colors.card);
+    if (loaded) {
+      SplashScreen.hideAsync();
+      checkAuth();
+    }
+  }, [loaded]);
 
   return (
     <SafeAreaView style={[styles.container, styles.horizontal]}>
