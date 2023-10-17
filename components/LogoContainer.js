@@ -17,7 +17,7 @@ const LogoContainer = () => {
   return (
     <View style={styles.logoContainer}>
       <View style={styles.logo}>
-        <Icon source={logo} size={110} tintColor={Colors.main} />
+        <Icon source={logo} size={110} tintColor={Colors.primary} />
       </View>
 
       <View style={styles.title}>

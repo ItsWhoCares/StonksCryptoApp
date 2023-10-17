@@ -11,9 +11,9 @@ import {
   Button,
   LoaderScreen,
   Icon,
-  TextField,
   SafeAreaSpacerView,
 } from "react-native-ui-lib";
+import TextField from "../components/TextField";
 
 //import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -23,7 +23,10 @@ import { AntDesign } from "@expo/vector-icons";
 import { Link, Stack, router } from "expo-router";
 
 import Text from "../components/CText";
-import { handleLogin } from "../Helpers/authHelpers";
+import {
+  handleLoginWithEmail,
+  handleLoginWithOAuth,
+} from "../Helpers/authHelpers";
 import Modal from "../components/Modal";
 
 export default function LogIn() {
@@ -36,9 +39,9 @@ export default function LogIn() {
       <SafeAreaSpacerView />
 
       <Text text40 foreground>
-        Sign In
+        Log In
       </Text>
-      <Text mutedForeground>Enter your email below to sign In</Text>
+      <Text mutedForeground>Enter your email below to log In</Text>
 
       <View style={styles.OAuthBtnContainer}>
         <Button
@@ -71,6 +74,7 @@ export default function LogIn() {
           iconSource={() => (
             <AntDesign name="google" size={24} color={Colors.foreground} />
           )}
+          onPress={() => router.replace("/")}
         />
       </View>
       <View
@@ -115,7 +119,7 @@ export default function LogIn() {
       <Button
         label={"Log In"}
         onPress={() =>
-          handleLogin({
+          handleLoginWithEmail({
             email,
             pass,
             setIsError,
@@ -123,7 +127,7 @@ export default function LogIn() {
         }
         br20
         size={Button.sizes.large}
-        backgroundColor={Colors.primaryColor}
+        backgroundColor={Colors.primary}
         marginT-10
         primaryForeground
       />
@@ -135,7 +139,7 @@ export default function LogIn() {
         mutedForeground
         highlightString={["Sign Up"]}
         highlightStyle={{
-          color: Colors.primaryColor,
+          color: Colors.primary,
         }}>
         Don't have an account? Sign Up
       </Text>
@@ -182,7 +186,7 @@ const styles = StyleSheet.create({
     color: Colors.foreground,
     backgroundColor: Colors.background,
     height: 46,
-    paddingLeft: 15,
+    paddingHorizontal: 15,
   },
   labelStyle: {
     color: Colors.foreground,

@@ -11,8 +11,6 @@ import { useFonts } from "expo-font";
 import CText from "../components/CText";
 
 export default function Layout() {
-
-
   useEffect(() => {
     StatusBar.setBackgroundColor(Colors.card);
     StatusBar.setBarStyle("light-content");
@@ -36,12 +34,6 @@ export default function Layout() {
         />
         <Stack.Screen
           name="SignUp"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Home"
           options={{
             headerShown: false,
           }}

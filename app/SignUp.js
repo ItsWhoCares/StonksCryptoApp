@@ -135,7 +135,7 @@ export default function SignUp() {
         label={"Create account"}
         br20
         size={Button.sizes.large}
-        backgroundColor={Colors.primaryColor}
+        backgroundColor={Colors.primary}
         marginT-10
         primaryForeground
         onPress={() => {
@@ -155,7 +155,7 @@ export default function SignUp() {
         highlightString={["Terms of Service", "Privacy Policy"]}
         highlightStyle={{
           textDecorationLine: "underline",
-          color: Colors.primaryColor,
+          color: Colors.primary,
         }}>
         By creating an account, I agree to StonksCrypto's Terms of Service and
         Privacy Policy.
@@ -167,7 +167,7 @@ export default function SignUp() {
         mutedForeground
         highlightString={["Log In"]}
         highlightStyle={{
-          color: Colors.primaryColor,
+          color: Colors.primary,
         }}>
         Already have an account? Log In
       </Text>

@@ -26,7 +26,7 @@ const Modal = ({ isVisible, message, setVisible }) => {
             onPress={() => setVisible(null)}
             br20
             primaryForeground
-            backgroundColor={Colors.primaryColor}
+            backgroundColor={Colors.primary}
             marginT-10
           />
         </View>

@@ -75,7 +75,7 @@ export default function App() {
   return (
     <SafeAreaView style={[styles.container, styles.horizontal]}>
       <StatusBar style="light" backgroundColor={Colors.card} />
-      <ActivityIndicator size={"large"} color={Colors.primaryColor} />
+      <ActivityIndicator size={"large"} color={Colors.primary} />
     </SafeAreaView>
   );
 }

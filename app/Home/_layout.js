@@ -1,6 +1,7 @@
-import { AntDesign, Feather, Fontisto, FontAwesome5 } from "@expo/vector-icons";
+import { Feather, Fontisto, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { StyleSheet } from "react-native";
 import { Colors } from "react-native-ui-lib";
 
 export default function Layout() {
@@ -14,6 +15,14 @@ export default function Layout() {
           tabBarInactiveBackgroundColor: Colors.card,
           tabBarActiveTintColor: Colors.textColor,
           headerShown: false,
+
+          tabBarStyle: {
+            borderWidth: StyleSheet.hairlineWidth,
+            //borderColor: Colors.card,
+            borderTopColor: Colors.mutedForeground,
+            borderBottomColor: Colors.card,
+            //elevation: 10,
+          },
         }}>
         <Tabs.Screen
           name="Markets"
@@ -22,7 +31,17 @@ export default function Layout() {
               <Feather
                 name="bar-chart-2"
                 size={24}
-                color={focused ? Colors.main : "#fff"}
+                color={focused ? Colors.primary : Colors.mutedForeground}
+              />
+            ),
+            headerRight: () => (
+              <Ionicons
+                name="search"
+                size={24}
+                style={{
+                  marginRight: 15,
+                }}
+                color={Colors.mutedForeground}
               />
             ),
           }}
@@ -38,7 +57,7 @@ export default function Layout() {
                 //   fontWeight: "bold",
                 //   fontSize: 24,
                 // }}
-                color={focused ? Colors.main : "#fff"}
+                color={focused ? Colors.primary : Colors.mutedForeground}
               />
             ),
           }}
@@ -54,7 +73,7 @@ export default function Layout() {
                 //   fontWeight: "bold",
                 //   fontSize: 24,
                 // }}
-                color={focused ? Colors.main : "#fff"}
+                color={focused ? Colors.primary : Colors.mutedForeground}
               />
             ),
           }}

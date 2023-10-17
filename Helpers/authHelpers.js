@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { supabase } from "./supabase";
-export const handleLogin = async ({ email, pass, setIsError }) => {
+export const handleLoginWithEmail = async ({ email, pass, setIsError }) => {
   console.log(email, pass);
 
   const { data, error } = await supabase.auth.signInWithPassword({
@@ -10,6 +10,18 @@ export const handleLogin = async ({ email, pass, setIsError }) => {
   if (error) {
     setIsError(error);
   }
+  return data;
+};
+
+export const handleLoginWithOAuth = async ({ provider, setIsError }) => {
+  if (provider != "google" && provider != "github") return;
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider,
+  });
+  if (error) {
+    setIsError(error);
+  }
+  console.log(data, error);
   return data;
 };
 
@@ -24,9 +36,9 @@ export const handleSignUp = async ({
     email,
     password: pass,
   });
-  setToToast(true);
-  setMsg("Confirmation mail sent, Please confirm email and log in");
-  return;
+  // setToToast(true);
+  // setMsg("Confirmation mail sent, Please confirm email and log in");
+  // return;
   if (error) {
     console.log(error);
     setIsError(error);
