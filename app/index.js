@@ -31,8 +31,6 @@ import { SplashScreen } from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
 
-import CText from "../components/CText";
-
 import { supabase } from "../Helpers/supabase";
 
 export default function App() {
@@ -42,22 +40,26 @@ export default function App() {
   });
 
   const checkAuth = () => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        router.replace("/Home");
-      } else {
-        console.log("no user");
-      }
-    });
+    try {
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+          router.replace("/Home");
+        } else {
+          console.log("no user");
+        }
+      });
 
-    supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) {
-        router.replace("/Home");
-      } else {
-        console.log("no user listner");
-        router.replace("/LogIn");
-      }
-    });
+      supabase.auth.onAuthStateChange((_event, session) => {
+        if (session) {
+          router.replace("/Home");
+        } else {
+          console.log("no user listner");
+          router.replace("/LogIn");
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -65,7 +67,7 @@ export default function App() {
   }, [error]);
 
   useEffect(() => {
-    NavigationBar.setBackgroundColorAsync(Colors.card);
+    NavigationBar.setBackgroundColorAsync(Colors.background);
     if (loaded) {
       SplashScreen.hideAsync();
       checkAuth();
@@ -74,7 +76,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={[styles.container, styles.horizontal]}>
-      <StatusBar style="light" backgroundColor={Colors.card} />
+      <StatusBar style="light" backgroundColor={Colors.background} />
       <ActivityIndicator size={"large"} color={Colors.primary} />
     </SafeAreaView>
   );
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.background,
     marginTop: StatusBar.currentHeight,
   },
   horizontal: {

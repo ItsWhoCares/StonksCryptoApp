@@ -11,6 +11,7 @@ import {
   Button,
   LoaderScreen,
   Icon,
+  Text,
   SafeAreaSpacerView,
 } from "react-native-ui-lib";
 import TextField from "../components/TextField";
@@ -22,7 +23,6 @@ import { Colors } from "react-native-ui-lib";
 import { AntDesign } from "@expo/vector-icons";
 import { Link, Stack, router } from "expo-router";
 
-import Text from "../components/CText";
 import {
   handleLoginWithEmail,
   handleLoginWithOAuth,
@@ -33,15 +33,16 @@ export default function LogIn() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [isError, setIsError] = useState(null);
+  const [loading, setLoading] = useState(false);
   return (
-    <View flex padding-page marginT-20 bg-card useSafeArea={true}>
-      <StatusBar style="light" backgroundColor={Colors.card} />
+    <View flex padding-page marginT-20 bg-background useSafeArea={true}>
       <SafeAreaSpacerView />
+      <StatusBar backgroundColor={Colors.background} style="light" />
 
-      <Text text40 foreground>
+      <Text text40 textColor>
         Log In
       </Text>
-      <Text mutedForeground>Enter your email below to log In</Text>
+      <Text textMuted>Enter your email below to log In</Text>
 
       <View style={styles.OAuthBtnContainer}>
         <Button
@@ -56,7 +57,7 @@ export default function LogIn() {
             justifyContent: "space-evenly",
           }}
           iconSource={() => (
-            <AntDesign name="github" size={24} color={Colors.foreground} />
+            <AntDesign name="github" size={24} color={Colors.textColor} />
           )}
         />
 
@@ -72,7 +73,7 @@ export default function LogIn() {
             justifyContent: "space-evenly",
           }}
           iconSource={() => (
-            <AntDesign name="google" size={24} color={Colors.foreground} />
+            <AntDesign name="google" size={24} color={Colors.textColor} />
           )}
           onPress={() => router.replace("/")}
         />
@@ -84,7 +85,7 @@ export default function LogIn() {
           marginBottom: 10,
         }}>
         <View style={styles.line}></View>
-        <Text center mutedForeground>
+        <Text center textMuted>
           OR
         </Text>
         <View style={[styles.line, { marginLeft: "55%" }]}></View>
@@ -98,9 +99,9 @@ export default function LogIn() {
         }}
         onChangeText={(value) => setEmail(value)}
         placeholder="m@example.com"
-        placeholderTextColor={Colors.mutedForeground}
+        placeholderTextColor={Colors.textMuted}
         fieldStyle={styles.withFrame}
-        foreground
+        textColor
       />
       <TextField
         onChangeText={(value) => setPass(value)}
@@ -111,25 +112,27 @@ export default function LogIn() {
           paddingVertical: 10,
         }}
         placeholder=""
-        placeholderTextColor={Colors.mutedForeground}
+        placeholderTextColor={Colors.textMuted}
         fieldStyle={styles.withFrame}
-        foreground
         secureTextEntry
+        textColor
       />
       <Button
-        label={"Log In"}
-        onPress={() =>
-          handleLoginWithEmail({
+        label={loading ? "..." : "Log In"}
+        onPress={async () => {
+          setLoading(true);
+          await handleLoginWithEmail({
             email,
             pass,
             setIsError,
-          })
-        }
+          });
+          setLoading(false);
+        }}
         br20
         size={Button.sizes.large}
         backgroundColor={Colors.primary}
         marginT-10
-        primaryForeground
+        background
       />
 
       <Text
@@ -155,7 +158,7 @@ export default function LogIn() {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.background,
     alignItems: "",
     justifyContent: "",
   },
@@ -183,13 +186,13 @@ const styles = StyleSheet.create({
     borderColor: Colors.input,
     padding: 4,
     borderRadius: 6,
-    color: Colors.foreground,
+    color: Colors.textColor,
     backgroundColor: Colors.background,
     height: 46,
     paddingHorizontal: 15,
   },
   labelStyle: {
-    color: Colors.foreground,
+    color: Colors.textColor,
     fontSize: 18,
     paddingBottom: 6,
     fontFamily: "RubikReg",

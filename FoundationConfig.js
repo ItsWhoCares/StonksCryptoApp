@@ -15,7 +15,20 @@ import { Colors, Typography, Spacings } from "react-native-ui-lib";
 Typography.loadTypographies({
   heading: { fontSize: 36, fontWeight: "600" },
   subheading: { fontSize: 28, fontWeight: "500" },
-  body: { fontSize: 18, fontWeight: "400" },
+  body: {
+    fontFamily: "RubikReg",
+  },
+  text90: {
+    fontFamily: "RubikReg",
+    fontSize: 12,
+    fontWeight: "300",
+  },
+  text100: {
+    fontFamily: "RubikReg",
+    fontSize: 10,
+
+    fontWeight: "300",
+  },
 });
 
 Spacings.loadSpacings({
@@ -92,30 +105,56 @@ Colors.loadColors({
 // });
 
 //binance scheme
+// Colors.loadColors({
+//   background: "hsl(215, 22%, 15%)",
+//   foreground: "hsl(0, 0%, 95%)", //primary text color
+//   muted: "hsl(0, 0%, 15%)",
+//   mutedForeground: "hsl(240, 5%, 64.9%)", //secondary text color
+//   card: "hsl(215, 22%, 15%)", //primary bg color
+//   cardForeground: "hsl(0, 0%, 95%)",
+//   input: "rgb(71, 77, 87)", //border color
+//   primaryForeground: "hsl(144.9, 80.4%, 10%)", //text inside primary btn
+//   accent: "hsl(12, 6.5%, 15.1%)",
+//   primaryBg: "hsl(20, 14.3%, 4.1%)",
+//   secondaryBgColor: "hsl(24, 9.8%, 10%)",
+//   primary: "#F0B90B",
+//   bgColor: "#1c1917",
+//   //primaryColor: "#ebebeb",
+//   secondaryColor: "#09090b",
+//   //secondaryColor: "#09090b",
+//   textColor: "hsl(0, 0%, 95%)",
+//   mutedText: "hsl(219, 10%, 49%)",
+//   secondaryTextColor: "#a1a1aa",
+//   errorColor: "#E63B2E",
+//   successColor: "#ADC76F",
+//   warnColor: "##FF963C",
+//   main: "hsl(49, 91%, 49%)",
+//   //   //   main: "#24b47e",
+// });
+
 Colors.loadColors({
-  background: "hsl(215, 22%, 15%)",
-  foreground: "hsl(0, 0%, 95%)", //primary text color
-  muted: "hsl(0, 0%, 15%)",
-  mutedForeground: "hsl(240, 5%, 64.9%)", //secondary text color
-  card: "hsl(215, 22%, 15%)", //primary bg color
-  cardForeground: "hsl(0, 0%, 95%)",
-  input: "rgb(71, 77, 87)", //border color
-  primaryForeground: "hsl(144.9, 80.4%, 10%)", //text inside primary btn
-  accent: "hsl(12, 6.5%, 15.1%)",
-  primaryBgColor: "hsl(20, 14.3%, 4.1%)",
-  secondaryBgColor: "hsl(24, 9.8%, 10%)",
+  $backgroundPrimary: "#202630",
+  $backgroundNeutral: "#434C5A",
+  $IconPrimaryLight: "#FCD535",
+  $IconPrimaryHeavy: "#F0B90B",
+  $primaryHeavy: "#F0B90B",
+  $primaryLight: "#FCD535",
+  $textDefault: "#EAECEF",
+  $textNeutral: "#707A8A",
+  $textSuccess: "#2EBD85",
+  $textDanger: "#F6465D",
+});
+Colors.loadColors({
+  background: "#202630",
   primary: "#F0B90B",
-  bgColor: "#1c1917",
-  //primaryColor: "#ebebeb",
-  secondaryColor: "#09090b",
-  //secondaryColor: "#09090b",
-  textColor: "hsl(0, 0%, 95%)",
-  secondaryTextColor: "#a1a1aa",
-  errorColor: "#E63B2E",
-  successColor: "#ADC76F",
-  warnColor: "##FF963C",
-  main: "hsl(49, 91%, 49%)",
-  //   //   main: "#24b47e",
+  secondary: "#FCD535",
+  mutedBackground: "#434C5A",
+  textColor: "#EAECEF",
+  textMuted: "#848E9C",
+  positive: "#2EBD85",
+  negative: "#F6465D",
+  mutedIcon: "#707A8A",
+  input: "rgb(71, 77, 87)", //border color
 });
 
 // Colors.loadSchemes({

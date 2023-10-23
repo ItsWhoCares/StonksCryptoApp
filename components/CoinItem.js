@@ -1,22 +1,33 @@
 import { View, Text, Image, ListItem, Colors } from "react-native-ui-lib";
 import React from "react";
 import { Alert, StyleSheet } from "react-native";
+import { SvgUri } from "react-native-svg";
 
-const CoinItem = () => {
+const CoinItem = ({ coin }) => {
   return (
-    <View>
+    <View paddingH-5>
       <ListItem
         activeBackgroundColor={Colors.grey60}
         activeOpacity={0.3}
         height={77.5}
         onPress={() => Alert.alert(`pressed on order #1`)}>
         <ListItem.Part left>
-          <Image
-            source={{
-              uri: "https://bin.bnbstatic.com/image/admin_mgs_image_upload/20220218/94863af2-c980-42cf-a139-7b9f462a36c2.png",
-            }}
-            style={styles.image}
-          />
+          {coin.iconUrl.endsWith(".svg") ? (
+            <SvgUri
+              uri={coin.iconUrl}
+              width={54}
+              height={54}
+              style={styles.image}
+              
+            />
+          ) : (
+            <Image
+              source={{
+                uri: coin.iconUrl,
+              }}
+              style={styles.image}
+            />
+          )}
         </ListItem.Part>
         <ListItem.Part
           middle
@@ -24,13 +35,13 @@ const CoinItem = () => {
           containerStyle={[styles.border, { paddingRight: 17 }]}>
           <ListItem.Part containerStyle={{ marginBottom: 3 }}>
             <Text
-              grey10
+              textColor
               text70
               style={{ flex: 1, marginRight: 10 }}
               numberOfLines={1}>
-              {"BNB"}
+              {coin.name}
             </Text>
-            <Text grey10 text70 style={{ marginTop: 2 }}>
+            <Text positive text70 style={{ marginTop: 2 }}>
               {"$69"}
             </Text>
           </ListItem.Part>
@@ -65,7 +76,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 14,
   },
   border: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    // borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: Colors.grey70,
   },
 });

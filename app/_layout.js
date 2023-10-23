@@ -8,16 +8,14 @@ import { SplashScreen } from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
 
-import CText from "../components/CText";
-
 export default function Layout() {
   useEffect(() => {
-    StatusBar.setBackgroundColor(Colors.card);
+    StatusBar.setBackgroundColor(Colors.background);
     StatusBar.setBarStyle("light-content");
   }, []);
   return (
     <>
-      <StatusBar style="light" backgroundColor={Colors.card} />
+      {/* <StatusBar style="light" backgroundColor={Colors.background} /> */}
       <Stack
         screenOptions={{
           headerShown: false,

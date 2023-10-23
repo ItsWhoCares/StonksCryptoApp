@@ -7,14 +7,14 @@ import "../ComponentConfig";
 import React, { useState } from "react";
 import {
   View,
-  Card,
+  background,
   Button,
   LoaderScreen,
   SafeAreaSpacerView,
   Icon,
   TextField,
+  Text,
 } from "react-native-ui-lib";
-import Text from "../components/CText";
 
 import { Colors } from "react-native-ui-lib";
 
@@ -31,13 +31,12 @@ export default function SignUp() {
   const [toToast, setToToast] = useState(null);
   const [msg, setMsg] = useState("");
   return (
-    <View flex padding-page marginT-20 bg-card>
-      <StatusBar style="light" backgroundColor={Colors.card} />
-
-      <Text text40 foreground>
+    <View flex padding-page marginT-20 bg-background>
+      <StatusBar backgroundColor={Colors.background} style="light" />
+      <Text text40 textColor>
         Create an account
       </Text>
-      <Text mutedForeground>Enter your email below to create your account</Text>
+      <Text textMuted>Enter your email below to create your account</Text>
 
       <View
         style={{
@@ -64,7 +63,7 @@ export default function SignUp() {
             justifyContent: "space-evenly",
           }}
           iconSource={() => (
-            <AntDesign name="github" size={24} color={Colors.foreground} />
+            <AntDesign name="github" size={24} color={Colors.textColor} />
           )}
         />
 
@@ -80,7 +79,7 @@ export default function SignUp() {
             justifyContent: "space-evenly",
           }}
           iconSource={() => (
-            <AntDesign name="google" size={24} color={Colors.foreground} />
+            <AntDesign name="google" size={24} color={Colors.textColor} />
           )}
         />
       </View>
@@ -91,7 +90,7 @@ export default function SignUp() {
           marginBottom: 10,
         }}>
         <View style={styles.line}></View>
-        <Text center mutedForeground>
+        <Text center textMuted>
           OR
         </Text>
         <View style={[styles.line, { marginLeft: "55%" }]}></View>
@@ -105,9 +104,9 @@ export default function SignUp() {
         }}
         onChangeText={(value) => setEmail(value)}
         placeholder="m@example.com"
-        placeholderTextColor={Colors.mutedForeground}
+        placeholderTextColor={Colors.textMuted}
         fieldStyle={styles.withFrame}
-        foreground
+        textColor
       />
       <TextField
         onChangeText={(value) => setPass(value)}
@@ -118,9 +117,9 @@ export default function SignUp() {
           paddingVertical: 10,
         }}
         placeholder=""
-        placeholderTextColor={Colors.mutedForeground}
+        placeholderTextColor={Colors.textMuted}
         fieldStyle={styles.withFrame}
-        foreground
+        textColor
         secureTextEntry
         validate={(value) => value.length > 6}
         validationMessage="Password is too short"
@@ -137,7 +136,7 @@ export default function SignUp() {
         size={Button.sizes.large}
         backgroundColor={Colors.primary}
         marginT-10
-        primaryForeground
+        primarytextColor
         onPress={() => {
           const res = handleSignUp({
             email,
@@ -149,7 +148,7 @@ export default function SignUp() {
         }}
       />
       <Text
-        mutedForeground
+        textMuted
         center
         margin-15
         highlightString={["Terms of Service", "Privacy Policy"]}
@@ -164,7 +163,7 @@ export default function SignUp() {
         onPress={() => router.replace("/LogIn")}
         marginT-30
         text70
-        mutedForeground
+        textMuted
         highlightString={["Log In"]}
         highlightStyle={{
           color: Colors.primary,
@@ -188,7 +187,7 @@ export default function SignUp() {
         message={msg}
         swipeable
         style={{
-          backgroundColor: Colors.card,
+          backgroundColor: Colors.background,
           color: Colors.textColor,
           borderColor: Colors.input,
         }}
@@ -203,7 +202,7 @@ export default function SignUp() {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.background,
     alignItems: "",
     justifyContent: "",
   },
@@ -231,13 +230,13 @@ const styles = StyleSheet.create({
     borderColor: Colors.input,
     padding: 4,
     borderRadius: 6,
-    color: Colors.foreground,
+    color: Colors.textColor,
     backgroundColor: Colors.background,
     height: 46,
     paddingLeft: 15,
   },
   labelStyle: {
-    color: Colors.foreground,
+    color: Colors.textColor,
     fontSize: 18,
     paddingBottom: 6,
     fontFamily: "RubikReg",
