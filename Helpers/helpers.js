@@ -79,4 +79,8 @@ export async function getBalance(userID) {
   return data[0]?.balance ?? -1;
 }
 
+import chartData from "./time.json";
 
+export async function getOneDayData(uuid) {
+  return chartData;
+}

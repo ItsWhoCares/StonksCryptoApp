@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getOneDayData } from "../helpers";
 
 async function getCoinInfo(uuid) {
   const res = await fetch(
@@ -26,9 +27,15 @@ async function getCoinPrice(uuid) {
 export default function useCoin(initial) {
   const [coin, setCoin] = useState(initial);
   const [price, setPrice] = useState(initial.price);
+  const [change, setChange] = useState(initial.change);
+  const [history, setHistory] = useState([]);
   useEffect(() => {
     getCoinInfo(coin.uuid).then((r) => setCoin(r));
     getCoinPrice(coin.uuid).then((r) => setPrice(r));
+    getOneDayData(coin.uuid).then((r) => {
+      setHistory(r.history);
+      setChange(r.change);
+    });
     const iter = setInterval(() => {
       getCoinPrice(coin.uuid).then((r) => setPrice(r));
     }, 10000);
@@ -36,5 +43,5 @@ export default function useCoin(initial) {
       clearInterval(iter);
     };
   }, []);
-  return [coin, price];
+  return [coin, price, change, history];
 }

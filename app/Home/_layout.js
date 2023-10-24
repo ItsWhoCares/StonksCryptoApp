@@ -5,6 +5,8 @@ import { StyleSheet } from "react-native";
 import { Colors } from "react-native-ui-lib";
 import { supabase } from "../../Helpers/supabase";
 
+import "react-native-gesture-handler";
+
 export default function Layout() {
   return (
     <>
