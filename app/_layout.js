@@ -10,6 +10,7 @@ import { SplashScreen } from "expo-router";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function Layout() {
   useEffect(() => {
@@ -22,10 +23,10 @@ export default function Layout() {
       <Stack
         screenOptions={{
           headerShown: false,
-          headerStyle: {
-            backgroundColor: Colors.card,
-          },
-          headerTintColor: Colors.foreground,
+          // headerStyle: {
+          //   backgroundColor: Colors.card,
+          // },
+          // headerTintColor: Colors.mutedText,
         }}>
         <Stack.Screen
           name="LogIn"
@@ -37,6 +38,15 @@ export default function Layout() {
           name="SignUp"
           options={{
             headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Coin"
+          options={{
+            headerShown: false,
+            headerRight: () => (
+              <AntDesign name="staro" size={24} color={Colors.textMuted} />
+            ),
           }}
         />
       </Stack>

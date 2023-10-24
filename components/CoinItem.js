@@ -5,6 +5,7 @@ import { SvgUri } from "react-native-svg";
 import { Image } from "expo-image";
 import logo from "../assets/logo.png";
 import { formatCurrency, formatNumber } from "../Helpers/helpers";
+import { router } from "expo-router";
 
 const workers = [
   "https://svg-to-png.mrproper.dev/",
@@ -20,7 +21,18 @@ const CoinItem = ({ coin }) => {
         activeBackgroundColor={Colors.grey60}
         activeOpacity={0.3}
         height={77.5}
-        onPress={() => Alert.alert(`pressed on order #1`)}>
+        onPress={() =>
+          router.push({
+            pathname: "/Coin",
+            params: {
+              uuid: coin.uuid,
+              symbol: coin.symbol,
+              name: coin.name,
+              price: coin.price,
+              change: coin.change,
+            },
+          })
+        }>
         <ListItem.Part left>
           <Image
             source={{
@@ -47,7 +59,7 @@ const CoinItem = ({ coin }) => {
             <Text
               textColor
               text70
-              style={{ flex: 1, marginRight: 10 }}
+              style={{ flex: 1, marginRight: 10, fontWeight: "bold" }}
               numberOfLines={1}>
               {coin.name}
             </Text>
