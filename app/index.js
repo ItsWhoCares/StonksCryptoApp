@@ -73,6 +73,10 @@ export default function App() {
       checkAuth();
     }
   }, [loaded]);
+  useEffect(() => {
+    StatusBar.setBackgroundColor(Colors.background);
+    StatusBar.setBarStyle("light-content");
+  }, []);
 
   return (
     <SafeAreaView style={[styles.container, styles.horizontal]}>

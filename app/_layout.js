@@ -3,6 +3,9 @@ import { StatusBar } from "react-native";
 import { useEffect } from "react";
 import { Colors } from "react-native-ui-lib";
 
+import "react-native-reanimated";
+import "react-native-gesture-handler";
+
 import { SplashScreen } from "expo-router";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -15,7 +18,7 @@ export default function Layout() {
   }, []);
   return (
     <>
-      {/* <StatusBar style="light" backgroundColor={Colors.background} /> */}
+      <StatusBar style="light" backgroundColor={Colors.background} />
       <Stack
         screenOptions={{
           headerShown: false,

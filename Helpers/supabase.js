@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SecureStore from "expo-secure-store";
 import * as aesjs from "aes-js";
 import "react-native-get-random-values";
+import { useEffect, useState } from "react";
 
 // As Expo's SecureStore does not support values larger than 2048
 // bytes, an AES-256 key is generated and stored in SecureStore, while
@@ -74,3 +75,53 @@ export const supabase = createClient(
     },
   }
 );
+
+export const useUser = (initial) => {
+  const [user, setUser] = useState(initial);
+  useEffect(() => {
+    supabase.auth.getUser().then((usr) => setUser(usr.data.user));
+  }, []);
+  return user;
+};
+
+async function getBalance(userID) {
+  //console.log(userID);
+  const { data, error } = await supabase
+    .from("user_data")
+    .select("*")
+    .eq("user_id", userID);
+  if (error) {
+    console.log(error);
+    return -1;
+  }
+  return data[0]?.balance ?? -1;
+}
+
+export const useBalance = (initial) => {
+  const [balance, setBalance] = useState(initial);
+  const user = useUser();
+  useEffect(() => {
+    if (!user) return;
+    getBalance(user.id).then((balance) => {
+      setBalance(balance);
+    });
+  }, [user]);
+  useEffect(() => {
+    if (!user) return;
+    const userData = supabase
+      .channel("custom-update-channel")
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "user_data" },
+        (payload) => {
+          console.log("Change received!", payload);
+          setBalance(payload.new.balance);
+        }
+      )
+      .subscribe();
+    return () => {
+      userData.unsubscribe();
+    };
+  }, [user]);
+  return balance;
+};

@@ -1,9 +1,19 @@
-import { View, Text, Image, ListItem, Colors } from "react-native-ui-lib";
-import React from "react";
+import { View, Text, ListItem, Colors } from "react-native-ui-lib";
+import React, { useState } from "react";
 import { Alert, StyleSheet } from "react-native";
 import { SvgUri } from "react-native-svg";
+import { Image } from "expo-image";
+import logo from "../assets/logo.png";
+import { formatCurrency, formatNumber } from "../Helpers/helpers";
+
+const workers = [
+  "https://svg-to-png.mrproper.dev/",
+  ,
+  "https://svg-to-png.citiesskylinegautam.workers.dev/",
+];
 
 const CoinItem = ({ coin }) => {
+  const [u, setU] = useState(0);
   return (
     <View paddingH-5>
       <ListItem
@@ -12,22 +22,22 @@ const CoinItem = ({ coin }) => {
         height={77.5}
         onPress={() => Alert.alert(`pressed on order #1`)}>
         <ListItem.Part left>
-          {coin.iconUrl.endsWith(".svg") ? (
-            <SvgUri
-              uri={coin.iconUrl}
-              width={54}
-              height={54}
-              style={styles.image}
-              
-            />
-          ) : (
-            <Image
-              source={{
-                uri: coin.iconUrl,
-              }}
-              style={styles.image}
-            />
-          )}
+          <Image
+            source={{
+              uri: coin.iconUrl,
+            }}
+            cachePolicy={"memory-disk"}
+            style={styles.image}
+            onError={(e) => {
+              console.log(e);
+            }}
+            contentFit="cover"
+            transition={{
+              duration: 1,
+              effect: "flip-from-left",
+              timing: "ease-in-out",
+            }}
+          />
         </ListItem.Part>
         <ListItem.Part
           middle
@@ -41,8 +51,22 @@ const CoinItem = ({ coin }) => {
               numberOfLines={1}>
               {coin.name}
             </Text>
-            <Text positive text70 style={{ marginTop: 2 }}>
-              {"$69"}
+            <Text
+              text70
+              style={{
+                marginTop: 2,
+                color:
+                  coin.change <= 0
+                    ? coin.change == 0
+                      ? Colors.textMuted
+                      : Colors.negative
+                    : Colors.positive,
+                fontWeight: "bold",
+              }}>
+              {coin.change <= 0
+                ? formatNumber(coin.change)
+                : "+" + formatNumber(coin.change)}
+              {"%"}
             </Text>
           </ListItem.Part>
           <ListItem.Part>
@@ -50,9 +74,11 @@ const CoinItem = ({ coin }) => {
               style={{ flex: 1, marginRight: 10 }}
               text90
               grey40
-              numberOfLines={1}>{`${10} item`}</Text>
-            <Text text90 color={"green"} numberOfLines={1}>
-              {"paid"}
+              numberOfLines={1}>
+              {coin.symbol}
+            </Text>
+            <Text text90 numberOfLines={1}>
+              {formatCurrency(coin.price)}
             </Text>
           </ListItem.Part>
         </ListItem.Part>
@@ -70,8 +96,8 @@ const CoinItem = ({ coin }) => {
 
 const styles = StyleSheet.create({
   image: {
-    width: 54,
-    height: 54,
+    width: 32,
+    height: 32,
     borderRadius: 20,
     marginHorizontal: 14,
   },
