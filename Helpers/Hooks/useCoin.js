@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { getOneDayData } from "../helpers";
+import { useLocalSearchParams } from "expo-router";
 
 async function getCoinInfo(uuid) {
   const res = await fetch(
-    `https://stonks-crypto.vercel.app/api/getCoinInfo?uuid=${uuid}`
+    `${process.env.EXPO_PUBLIC_API_URL}/api/getCoinInfo?uuid=${uuid}`
   );
   if (res.status !== 200) {
     return null;
@@ -14,7 +15,7 @@ async function getCoinInfo(uuid) {
 
 async function getCoinPrice(uuid) {
   const res = await fetch(
-    `https://stonks-crypto.vercel.app/api/getCoinPrice?uuid=${uuid}`
+    `${process.env.EXPO_PUBLIC_API_URL}/api/getCoinPrice?uuid=${uuid}`
   );
   if (res.status !== 200) {
     return null;
@@ -25,17 +26,13 @@ async function getCoinPrice(uuid) {
 }
 
 export default function useCoin(initial) {
+  if (!initial) initial = useLocalSearchParams();
   const [coin, setCoin] = useState(initial);
   const [price, setPrice] = useState(initial.price);
-  const [change, setChange] = useState(initial.change);
-  const [history, setHistory] = useState([]);
   useEffect(() => {
     getCoinInfo(coin.uuid).then((r) => setCoin(r));
     getCoinPrice(coin.uuid).then((r) => setPrice(r));
-    getOneDayData(coin.uuid).then((r) => {
-      setHistory(r.history);
-      setChange(r.change);
-    });
+
     const iter = setInterval(() => {
       getCoinPrice(coin.uuid).then((r) => setPrice(r));
     }, 10000);
@@ -43,5 +40,5 @@ export default function useCoin(initial) {
       clearInterval(iter);
     };
   }, []);
-  return [coin, price, change, history];
+  return [coin, price];
 }

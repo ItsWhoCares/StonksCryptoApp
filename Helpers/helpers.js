@@ -6,6 +6,7 @@ import { supabase } from "./supabase";
 const REFERENCE_CURRENCY = "INR";
 
 export function formatCurrency(amount, notation = "standard", currency = null) {
+  "worklet";
   let price = new Intl.NumberFormat("en-IN", {
     style: "currency",
     notation: notation,
@@ -29,9 +30,10 @@ export function formatDateTime(timestamp) {
   return dayjs(timestamp).format("ddd HH:mm");
 }
 
+// const filters = ["merketCap"]
 export const getTopCoins = async ({ orderBy }) => {
   //console.log("fff");
-  return data[orderBy];
+  // return data[orderBy];
   try {
     if (orderBy === "marketCap") {
       // let a = await JSON.parse(
@@ -41,21 +43,21 @@ export const getTopCoins = async ({ orderBy }) => {
       // // console.log(b);
       // return a;
       const res = await fetch(
-        "http://192.168.29.209:3000/api/mobile/getTopCoinsMC"
+        `${process.env.EXPO_PUBLIC_API_URL}/api/mobile/getTopCoinsMC`
       );
       const data = await res.json();
 
       return data;
     } else if (orderBy === "price") {
       const res = await fetch(
-        "http://192.168.29.209:3000/api/mobile/getTopCoinsPrice"
+        `${process.env.EXPO_PUBLIC_API_URL}/api/mobile/getTopCoinsPrice`
       );
       const data = await res.json();
 
       return data;
     } else if (orderBy === "change") {
       const res = await fetch(
-        "http://192.168.29.209:3000/api/mobile/getTopCoinsChange"
+        `${process.env.EXPO_PUBLIC_API_URL}/api/mobile/getTopCoinsChange`
       );
       const data = await res.json();
 
@@ -82,5 +84,30 @@ export async function getBalance(userID) {
 import chartData from "./time.json";
 
 export async function getOneDayData(uuid) {
-  return chartData;
+  // chartData.history.reverse();
+  // console.log(chartData.history);
+  // const data = chartData;
+  const res = await fetch(
+    `${process.env.EXPO_PUBLIC_API_URL}/mobile/getDayChart?uuid=${uuid}`
+  );
+  const data = await res.json();
+
+  // console.log(data);
+
+  let max = data.history[0].value;
+  let maxIndex = 0;
+  let min = data.history[data.history.length - 1].value;
+  let minIndex = data.history.length - 1;
+  for (let i = 0; i < data.history.length; i++) {
+    if (data.history[i].value > max) {
+      max = data.history[i].value;
+      maxIndex = i;
+    }
+    if (data.history[i].value < min) {
+      min = data.history[i].value;
+      minIndex = i;
+    }
+  }
+  // console.log(max, maxIndex, min, minIndex);
+  return { ...data, minIndex: minIndex, maxIndex: maxIndex };
 }
