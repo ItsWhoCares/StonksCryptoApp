@@ -1,11 +1,23 @@
-import { View, Text, ColorName, Colors, Button } from "react-native-ui-lib";
+import {
+  View,
+  Text,
+  ColorName,
+  Colors,
+  Button,
+  TabController,
+} from "react-native-ui-lib";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Stack,
   useGlobalSearchParams,
   useLocalSearchParams,
 } from "expo-router";
-import { ActivityIndicator, Dimensions, ScrollView } from "react-native";
+import {
+  ActivityIndicator,
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 import {
   formatCurrency,
   formatNumber,
@@ -96,8 +108,10 @@ const Coin = () => {
                   }}
                   format={({ value }) => {
                     "worklet";
-                    if (isNaN(parseFloat(value))) return "----";
-                    const a = parseFloat(value).toLocaleString("en-IN", {
+                    let val = parseFloat(value);
+                    // console.log(val, value);
+                    if (isNaN(val)) return "----";
+                    const a = val.toLocaleString("en-IN", {
                       maximumFractionDigits: 2,
                       style: "currency",
                       currency: "INR",
@@ -161,28 +175,6 @@ const Coin = () => {
                         bottom: 20,
                       }}
                     />
-                    {/* <LineChart.PriceText
-
-                      style={{
-                        color: Colors.textColor,
-                        bottom: 20,
-                      }}
-                      format={({ value }) => {
-                        "worklet";
-                        console.log(parseFloat(value));
-                        const a = parseFloat(value);
-                        return a.toString();
-                        // if (isNaN(a)) return "0";
-                        // const price = new Intl.NumberFormat("en-IN", {
-                        //   style: "currency",
-                        //   notation: "standard",
-                        //   currency: "INR",
-                        //   // roundingPriority: amount < 1 ? "morePrecision" : "auto",
-                        //   maximumFractionDigits: a < 1 ? 8 : 2,
-                        // }).format(a);
-                        // return `${price.toString()}`;
-                      }}
-                    /> */}
                   </LineChart.Path>
                   <LineChart.CursorLine
                     lineProps={{
@@ -345,9 +337,133 @@ const Coin = () => {
             </View>
           </View>
         </LineChart.Provider>
+        <TabController
+          items={[{ label: "News" }, { label: "About Coin" }]}
+          asCarousel
+          initialIndex={1}>
+          <TabController.TabBar
+            enableShadows
+            containerStyle={{
+              marginLeft: "auto",
+              backgroundColor: Colors.background,
+            }}
+            backgroundColor={Colors.background}
+            labelColor={Colors.textMuted}
+            labelStyle={{
+              fontFamily: "RubikReg",
+            }}
+            selectedLabelColor={Colors.textColor}
+            selectedLabelStyle={{
+              fontFamily: "RubikReg",
+            }}
+            spreadItems={false}
+            indicatorStyle={{
+              backgroundColor: Colors.textColor,
+              height: 3,
+            }}
+            indicatorWidth={30}
+          />
+
+          <TabController.PageCarousel>
+            <TabController.TabPage index={0}>
+              {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((a) => (
+              <CoinItem key={a} />
+            ))} */}
+            </TabController.TabPage>
+            <TabController.TabPage index={1}>
+              <View style={styles.aboutRow} padding-15>
+                <Text textMuted>Rank</Text>
+                <Text>NO.{coin.rank}</Text>
+              </View>
+              <View style={styles.aboutRow} padding-15>
+                <Text textMuted>Market Cap</Text>
+                <Text>{formatCurrency(coin.marketCap, "compact")}</Text>
+              </View>
+              <View style={styles.line}></View>
+              <View style={styles.aboutRow} padding-15>
+                <Text textMuted>Tier</Text>
+                <Text>{coin.tier}</Text>
+              </View>
+              <View style={styles.aboutRow} padding-15>
+                <Text textMuted>Circulating Supply</Text>
+                <Text>
+                  {formatNumber(coin?.supply?.circulating, "compact") +
+                    " " +
+                    coin.symbol}
+                </Text>
+              </View>
+              <View style={styles.aboutRow} padding-15>
+                <Text textMuted>Max Supply</Text>
+                <Text>
+                  {formatNumber(coin?.supply?.max, "compact") +
+                    " " +
+                    coin.symbol}
+                </Text>
+              </View>
+              <View style={styles.aboutRow} padding-15>
+                <Text textMuted>Total Supply</Text>
+                <Text>
+                  {formatNumber(coin?.supply?.total, "compact") +
+                    " " +
+                    coin.symbol}
+                </Text>
+              </View>
+              <View style={styles.aboutRow} padding-15>
+                <Text textMuted>Listed At</Text>
+                <Text>
+                  {new Date(coin?.listedAt * 1000).toLocaleDateString(
+                    "en-IN",
+                    {}
+                  )}
+                </Text>
+              </View>
+              <View style={styles.aboutRow} padding-15>
+                <Text textMuted>Exchanges</Text>
+                <Text>{coin.numberOfExchanges}</Text>
+              </View>
+              <View style={styles.line}></View>
+              <View style={styles.aboutRow} padding-15>
+                <Text textMuted>All Time High</Text>
+                <Text>{formatCurrency(coin.allTimeHigh?.price)}</Text>
+              </View>
+              <View style={styles.aboutRow} padding-15>
+                <Text textMuted>All Time High At</Text>
+                <Text>
+                  {new Date(
+                    coin.allTimeHigh?.timestamp * 1000
+                  ).toLocaleDateString("en-IN") +
+                    " " +
+                    new Date(
+                      coin.allTimeHigh?.timestamp * 1000
+                    ).toLocaleTimeString("en-IN")}
+                </Text>
+              </View>
+              <View style={styles.line}></View>
+              <View style={styles.aboutRow} paddingT-10 paddingB-5 paddingH-15>
+                <Text textMuted>Introduction</Text>
+              </View>
+              <View style={styles.aboutRow} paddingH-15 paddingB-15>
+                <Text text80>{coin?.description}</Text>
+              </View>
+            </TabController.TabPage>
+          </TabController.PageCarousel>
+        </TabController>
       </ScrollView>
     </View>
   );
 };
 
 export default Coin;
+
+const styles = StyleSheet.create({
+  aboutRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  line: {
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "#333B47",
+    // width: "45%",
+    marginHorizontal: 15,
+  },
+});

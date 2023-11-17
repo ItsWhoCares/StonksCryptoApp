@@ -7,7 +7,9 @@ async function getChart(uuid, filter) {
     `${process.env.EXPO_PUBLIC_API_URL}/api/mobile/getChart?uuid=${uuid}&tp=${filters[filter]}`
   );
   const data = await res.json();
-  //   const data = chartData;
+  //const data = chartData;
+
+  data.history = data.history.filter((a) => a.value !== null);
   let max = data.history[0].value;
   let maxIndex = 0;
   let min = data.history[data.history.length - 1].value;
@@ -22,7 +24,8 @@ async function getChart(uuid, filter) {
       minIndex = i;
     }
   }
-  //   console.log(max, maxIndex, min, minIndex);
+
+  //console.log(max, maxIndex, min, minIndex);
   return { ...data, minIndex: minIndex, maxIndex: maxIndex };
 }
 

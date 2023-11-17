@@ -95,13 +95,6 @@ const CoinItem = ({ coin }) => {
           </ListItem.Part>
         </ListItem.Part>
       </ListItem>
-      {/* <Image
-        style={StyleSheet.absoluteFillObject}
-        overlayType="top"
-        source={{
-          uri: "https://bin.bnbstatic.com/image/admin_mgs_image_upload/20220218/94863af2-c980-42cf-a139-7b9f462a36c2.png",
-        }}></Image>
-      <View></View> */}
     </View>
   );
 };

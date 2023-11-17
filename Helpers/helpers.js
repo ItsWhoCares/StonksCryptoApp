@@ -5,11 +5,18 @@ import { supabase } from "./supabase";
 
 const REFERENCE_CURRENCY = "INR";
 
+/**
+ *
+ * @param {number} amount
+ * @param {string} notation
+ * @param {string} currency
+ * @returns {string} price
+ */
 export function formatCurrency(amount, notation = "standard", currency = null) {
   "worklet";
   let price = new Intl.NumberFormat("en-IN", {
     style: "currency",
-    notation: notation,
+    notation: "compact",
     currency: currency ?? REFERENCE_CURRENCY,
     // roundingPriority: amount < 1 ? "morePrecision" : "auto",
     maximumFractionDigits: amount < 1 ? 8 : 2,

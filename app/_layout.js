@@ -12,6 +12,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
 import { AntDesign } from "@expo/vector-icons";
 
+
 export default function Layout() {
   useEffect(() => {
     StatusBar.setBackgroundColor(Colors.background);

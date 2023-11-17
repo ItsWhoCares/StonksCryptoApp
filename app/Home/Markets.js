@@ -7,6 +7,8 @@ import {
   Button,
   Assets,
   ButtonSize,
+  SkeletonView,
+  ListItem,
 } from "react-native-ui-lib";
 import React, { useEffect, useState } from "react";
 import { Stack, Tabs, router } from "expo-router";
@@ -21,6 +23,7 @@ import {
   formatCurrency,
 } from "../../Helpers/helpers";
 import { FlashList } from "@shopify/flash-list";
+import CoinItemSkeletion from "../../components/CoinItemSkeletion";
 
 const orderBy = ["marketCap", "price", "change"];
 
@@ -183,18 +186,21 @@ const Home = () => {
               <Button lable={"Price"} size={ButtonSize.small} />
               <Button lable={"24H Change"} size={ButtonSize.small} /> */}
             </View>
-            <FlashList
-              refreshing={loading}
-              onRefresh={() => fetchCoins()}
-              data={coinList}
-              renderItem={({ item }) => (
-                <CoinItem key={item?.uuid} coin={item} />
-              )}
-              estimatedItemSize={100}
-            />
-            {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((a) => (
-              <CoinItem key={a} />
-            ))} */}
+            {!loading ? (
+              <FlashList
+                refreshing={loading}
+                onRefresh={() => fetchCoins()}
+                data={coinList}
+                renderItem={({ item }) => (
+                  <CoinItem key={item?.uuid} coin={item} />
+                )}
+                estimatedItemSize={100}
+              />
+            ) : (
+              [1, 2, 3, 4, 5, 6, 7, 8, 9].map((a) => (
+                <CoinItemSkeletion key={a} />
+              ))
+            )}
           </TabController.TabPage>
         </TabController.PageCarousel>
       </TabController>
