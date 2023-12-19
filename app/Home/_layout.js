@@ -2,8 +2,10 @@ import { Feather, Fontisto, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { Tabs, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet } from "react-native";
-import { Colors } from "react-native-ui-lib";
+import { Colors, ActionSheet } from "react-native-ui-lib";
 import { supabase } from "../../Helpers/supabase";
+
+import { Stack } from "expo-router/stack";
 
 import "react-native-gesture-handler";
 
@@ -49,7 +51,7 @@ export default function Layout() {
                   marginRight: 15,
                 }}
                 color={Colors.mutedIcon}
-                onPress={async () => await supabase.auth.signOut()}
+                onPress={() => router.push("/Search")}
               />
             ),
           }}
@@ -70,6 +72,7 @@ export default function Layout() {
             ),
           }}
         />
+
         <Tabs.Screen
           name="Portfolio"
           options={{

@@ -20,6 +20,7 @@ import {
 } from "react-native";
 import {
   formatCurrency,
+  formatCurrencyUSD,
   formatNumber,
   getOneDayData,
 } from "../Helpers/helpers";
@@ -95,7 +96,9 @@ const Coin = () => {
             <Text textMuted marginB-15>
               {coin.symbol}
             </Text>
-            <Text text50>{coin.name}</Text>
+            <Text text50 textColor>
+              {coin.name}
+            </Text>
             {holdView ? (
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <LineChart.PriceText
@@ -121,7 +124,7 @@ const Coin = () => {
                 />
               </View>
             ) : (
-              <Text text50 marginT-4>
+              <Text text50 marginT-4 textColor>
                 {formatCurrency(price)}
               </Text>
             )}
@@ -424,7 +427,7 @@ const Coin = () => {
               <View style={styles.line}></View>
               <View style={styles.aboutRow} padding-15>
                 <Text textMuted>All Time High</Text>
-                <Text>{formatCurrency(coin.allTimeHigh?.price)}</Text>
+                <Text>{formatCurrencyUSD(coin.allTimeHigh?.price)}</Text>
               </View>
               <View style={styles.aboutRow} padding-15>
                 <Text textMuted>All Time High At</Text>

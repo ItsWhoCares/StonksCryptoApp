@@ -1,6 +1,8 @@
 import { View, Text, ListItem, Colors } from "react-native-ui-lib";
 import React from "react";
 
+import { Skeleton } from "@rneui/themed";
+
 const CoinItemSkeletion = () => {
   return (
     <View paddingH-5>
@@ -9,49 +11,84 @@ const CoinItemSkeletion = () => {
         activeOpacity={0.3}
         height={77.5}>
         <ListItem.Part left>
-          <View
+          {/* <View
             style={{
               width: 32,
               height: 32,
               borderRadius: 20,
               marginHorizontal: 14,
               backgroundColor: Colors.mutedBackground,
-            }}></View>
+            }}></View> */}
+          <Skeleton
+            circle
+            animation="wave"
+            width={32}
+            height={32}
+            style={{
+              marginHorizontal: 14,
+              backgroundColor: Colors.mutedBackground,
+            }}
+            skeletonStyle={{
+              backgroundColor: Colors.mutedShadow,
+            }}
+          />
         </ListItem.Part>
         <ListItem.Part middle column containerStyle={{ paddingRight: 17 }}>
           <ListItem.Part containerStyle={{ marginBottom: 3 }}>
-            <View
+            {/* <View
               style={{
                 backgroundColor: Colors.mutedBackground,
                 width: "30%",
                 height: "60%",
                 borderRadius: 5,
-              }}></View>
-            <View
+              }}></View> */}
+            <Skeleton
+              animation="wave"
               style={{
-                marginVertical: 10,
+                backgroundColor: Colors.mutedBackground,
+                width: "30%",
+                borderRadius: 5,
+              }}
+              skeletonStyle={{
+                backgroundColor: Colors.mutedShadow,
+              }}
+            />
+            <Skeleton
+              animation="wave"
+              style={{
                 backgroundColor: Colors.mutedBackground,
                 width: "20%",
-                height: "60%",
                 borderRadius: 5,
-              }}></View>
+              }}
+              skeletonStyle={{
+                backgroundColor: Colors.mutedShadow,
+              }}
+            />
           </ListItem.Part>
           <ListItem.Part>
-            <View
+            <Skeleton
+              animation="wave"
               style={{
                 backgroundColor: Colors.mutedBackground,
                 width: "20%",
-                height: "60%",
                 borderRadius: 5,
-              }}></View>
-            <View
+              }}
+              skeletonStyle={{
+                backgroundColor: Colors.mutedShadow,
+              }}
+            />
+            <Skeleton
+              animation="wave"
               style={{
-                marginVertical: 10,
                 backgroundColor: Colors.mutedBackground,
+                marginVertical: 10,
                 width: "25%",
-                height: "60%",
                 borderRadius: 5,
-              }}></View>
+              }}
+              skeletonStyle={{
+                backgroundColor: Colors.mutedShadow,
+              }}
+            />
           </ListItem.Part>
         </ListItem.Part>
       </ListItem>

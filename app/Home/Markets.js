@@ -24,6 +24,7 @@ import {
 } from "../../Helpers/helpers";
 import { FlashList } from "@shopify/flash-list";
 import CoinItemSkeletion from "../../components/CoinItemSkeletion";
+import { Skeleton } from "@rneui/themed";
 
 const orderBy = ["marketCap", "price", "change"];
 
@@ -54,7 +55,7 @@ const Home = () => {
 
   const user = useUser(null);
   // const supabase = useSupabaseClient();
-  const balance = useBalance("----");
+  const balance = useBalance(null);
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.background }}>
@@ -80,9 +81,27 @@ const Home = () => {
             <Text text75 textColor>
               Total Balance
             </Text>
-            <Text text70 textColor>
-              {balance === "----" ? "----" : formatCurrency(balance)}
-            </Text>
+
+            {balance === null ? (
+              <Skeleton
+                animation="wave"
+                style={{
+                  backgroundColor: Colors.mutedBackground,
+                  height: 23,
+                  marginTop: 3,
+                  borderRadius: 10,
+                }}
+                skeletonStyle={{
+                  backgroundColor: Colors.mutedShadow,
+                }}
+              />
+            ) : (
+              <>
+                <Text text70 textColor>
+                  {formatCurrency(balance)}
+                </Text>
+              </>
+            )}
           </View>
           <AntDesign
             name="eye"
@@ -127,6 +146,14 @@ const Home = () => {
 
         <TabController.PageCarousel>
           <TabController.TabPage index={0}>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}>
+              <Text>Your Watchlist is empty</Text>
+            </View>
             {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((a) => (
               <CoinItem key={a} />
             ))} */}
@@ -201,6 +228,7 @@ const Home = () => {
                 <CoinItemSkeletion key={a} />
               ))
             )}
+            {/* <CoinItemSkeletion key={1} /> */}
           </TabController.TabPage>
         </TabController.PageCarousel>
       </TabController>

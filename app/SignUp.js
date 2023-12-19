@@ -135,8 +135,8 @@ export default function SignUp() {
         br20
         size={Button.sizes.large}
         backgroundColor={Colors.primary}
+        background
         marginT-10
-        primarytextColor
         onPress={() => {
           const res = handleSignUp({
             email,

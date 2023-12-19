@@ -29,7 +29,7 @@ const CoinItem = ({ coin }) => {
               symbol: coin.symbol,
               name: coin.name,
               price: coin.price,
-              change: coin.change,
+              change: coin.change ?? 0,
             },
           })
         }>
@@ -63,7 +63,7 @@ const CoinItem = ({ coin }) => {
               numberOfLines={1}>
               {coin.name}
             </Text>
-            <Text
+            {/* <Text
               text70
               style={{
                 marginTop: 2,
@@ -79,6 +79,9 @@ const CoinItem = ({ coin }) => {
                 ? formatNumber(coin.change)
                 : "+" + formatNumber(coin.change)}
               {"%"}
+            </Text> */}
+            <Text text70 textColor numberOfLines={1}>
+              {formatCurrency(coin.price)}
             </Text>
           </ListItem.Part>
           <ListItem.Part>
@@ -89,9 +92,9 @@ const CoinItem = ({ coin }) => {
               numberOfLines={1}>
               {coin.symbol}
             </Text>
-            <Text text90 textColor numberOfLines={1}>
+            {/* <Text text90 textColor numberOfLines={1}>
               {formatCurrency(coin.price)}
-            </Text>
+            </Text> */}
           </ListItem.Part>
         </ListItem.Part>
       </ListItem>

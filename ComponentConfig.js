@@ -1,6 +1,6 @@
 // ComponentsConfig.js
 
-import { ThemeManager, Typography } from "react-native-ui-lib";
+import { ThemeManager, Typography, Colors } from "react-native-ui-lib";
 
 // with plain object
 ThemeManager.setComponentTheme("Card", {
@@ -20,6 +20,6 @@ ThemeManager.setComponentTheme("Button", (props, context) => {
 
 ThemeManager.setComponentForcedTheme("Text", (props) => {
   return {
-    style: [Typography.body, props.style],
+    style: [Typography.body, { color: Colors.textColor }, props.style],
   };
 });

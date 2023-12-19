@@ -14,10 +14,22 @@ const REFERENCE_CURRENCY = "INR";
  */
 export function formatCurrency(amount, notation = "standard", currency = null) {
   "worklet";
+  // format compact does not work on android
   let price = new Intl.NumberFormat("en-IN", {
     style: "currency",
     notation: "compact",
     currency: currency ?? REFERENCE_CURRENCY,
+    // roundingPriority: amount < 1 ? "morePrecision" : "auto",
+    maximumFractionDigits: amount < 1 ? 8 : 2,
+  }).format(amount);
+  return price;
+}
+export function formatCurrencyUSD(amount, notation = "standard") {
+  "worklet";
+  let price = new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    notation: "compact",
+    currency: "USD",
     // roundingPriority: amount < 1 ? "morePrecision" : "auto",
     maximumFractionDigits: amount < 1 ? 8 : 2,
   }).format(amount);
@@ -37,10 +49,12 @@ export function formatDateTime(timestamp) {
   return dayjs(timestamp).format("ddd HH:mm");
 }
 
+import d from "./data.json";
 // const filters = ["merketCap"]
 export const getTopCoins = async ({ orderBy }) => {
   //console.log("fff");
   // return data[orderBy];
+
   try {
     if (orderBy === "marketCap") {
       // let a = await JSON.parse(
@@ -118,3 +132,19 @@ export async function getOneDayData(uuid) {
   // console.log(max, maxIndex, min, minIndex);
   return { ...data, minIndex: minIndex, maxIndex: maxIndex };
 }
+
+export const searchCoin = async (searchText) => {
+  if (searchText.length < 2) return [];
+  const res = await fetch(
+    `https://api.coinranking.com/v2/search-suggestions?query=${searchText}&referenceCurrencyUuid=${process.env.EXPO_PUBLIC_REFERENCE_CURRENCY_UUID}`
+  );
+  const data = await res.json();
+  if (data.error) {
+    return;
+  }
+  const coins = data?.data?.coins || [];
+  if (coins.length > 0) {
+    return coins;
+  }
+  return [];
+};

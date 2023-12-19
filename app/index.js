@@ -33,9 +33,13 @@ import { useFonts } from "expo-font";
 
 import { supabase } from "../Helpers/supabase";
 
+import "react-native-gesture-handler";
+
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 export default function App() {
   const [loaded, error] = useFonts({
-    RubikReg: require("../assets/fonts/Rubik-Regular.ttf"),
+    RubikReg: require("../assets/fonts/Rubik-Medium.ttf"),
     RubikLight: require("../assets/fonts/Rubik-Light.ttf"),
   });
 
