@@ -19,7 +19,8 @@ ThemeManager.setComponentTheme("Button", (props, context) => {
 });
 
 ThemeManager.setComponentForcedTheme("Text", (props) => {
+  //console.log(props);
   return {
-    style: [Typography.body, { color: Colors.textColor }, props.style],
+    style: [props.style],
   };
 });

@@ -12,22 +12,58 @@ import { Colors, Typography, Spacings } from "react-native-ui-lib";
 //   warnColor: "##FF963C",
 // });
 
+// console.log(Typography);
+
 Typography.loadTypographies({
   heading: { fontSize: 36, fontWeight: "600" },
   subheading: { fontSize: 28, fontWeight: "500" },
   body: {
-    fontFamily: "RubikReg",
+    fontFamily: "CustomFontM",
   },
   text90: {
-    fontFamily: "RubikReg",
+    fontFamily: "CustomFontM",
     fontSize: 12,
     fontWeight: "300",
   },
   text100: {
-    fontFamily: "RubikReg",
+    fontFamily: "CustomFontM",
     fontSize: 10,
 
     fontWeight: "300",
+  },
+  text50: {
+    ...Typography.text50,
+    fontFamily: "CustomFontB",
+  },
+
+  text70: {
+    ...Typography.text70,
+    fontFamily: "CustomFontB",
+  },
+
+  textThin: {
+    lineHeight: 20,
+    fontSize: 14,
+    fontFamily: "CustomFontR",
+    fontWeight: "100",
+  },
+
+  textThick: {
+    fontSize: 16,
+    fontFamily: "CustomFontB",
+    fontWeight: "normal",
+  },
+
+  text12M: {
+    fontSize: 12,
+    fontFamily: "CustomFontM",
+    fontWeight: "normal",
+  },
+
+  text26M: {
+    fontSize: 26,
+    fontFamily: "CustomFontM",
+    fontWeight: "normal",
   },
 });
 

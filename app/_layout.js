@@ -53,6 +53,8 @@ export default function Layout() {
             headerRight: () => (
               <AntDesign name="staro" size={24} color={Colors.textMuted} />
             ),
+            headerTitle: "hello",
+            headerTitleAlign: "center",
           }}
         />
         <Stack.Screen
@@ -72,6 +74,7 @@ export default function Layout() {
             headerTitleStyle: {
               color: Colors.textColor,
               fontSize: 18,
+              fontFamily: "CustomFontB",
             },
             headerLeft: () => (
               <Ionicons

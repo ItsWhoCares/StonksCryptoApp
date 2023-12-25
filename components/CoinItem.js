@@ -6,6 +6,7 @@ import { Image } from "expo-image";
 import logo from "../assets/logo.png";
 import { formatCurrency, formatNumber } from "../Helpers/helpers";
 import { router } from "expo-router";
+import { Typography } from "react-native-ui-lib";
 
 const workers = [
   "https://svg-to-png.mrproper.dev/",
@@ -15,6 +16,7 @@ const workers = [
 
 const CoinItem = ({ coin }) => {
   const [u, setU] = useState(0);
+  // console.log(Typography.textThin);
   return (
     <View paddingH-5>
       <ListItem
@@ -58,8 +60,8 @@ const CoinItem = ({ coin }) => {
           <ListItem.Part containerStyle={{ marginBottom: 3 }}>
             <Text
               textColor
-              text70
-              style={{ flex: 1, marginRight: 10, fontWeight: "bold" }}
+              textThick
+              style={{ flex: 1, marginRight: 10 }}
               numberOfLines={1}>
               {coin.name}
             </Text>
@@ -83,13 +85,17 @@ const CoinItem = ({ coin }) => {
           </ListItem.Part>
           <ListItem.Part>
             <Text
-              style={{ flex: 1, marginRight: 10 }}
-              text90
-              grey40
+              textThin
+              style={{
+                flex: 1,
+                marginRight: 10,
+                color: Colors.textMuted,
+                fontSize: 13,
+              }}
               numberOfLines={1}>
               {coin.symbol}
             </Text>
-            <Text text90 textColor numberOfLines={1}>
+            <Text textThin textColor numberOfLines={1}>
               {formatCurrency(coin.price)}
             </Text>
           </ListItem.Part>

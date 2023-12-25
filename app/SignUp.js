@@ -239,6 +239,6 @@ const styles = StyleSheet.create({
     color: Colors.textColor,
     fontSize: 18,
     paddingBottom: 6,
-    fontFamily: "RubikReg",
+    fontFamily: "CustomFontR",
   },
 });

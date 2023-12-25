@@ -25,6 +25,7 @@ import {
 import { FlashList } from "@shopify/flash-list";
 import CoinItemSkeletion from "../../components/CoinItemSkeletion";
 import { Skeleton } from "@rneui/themed";
+import { Typography } from "react-native-ui-lib";
 
 const orderBy = ["marketCap", "price", "change"];
 
@@ -73,6 +74,7 @@ const Home = () => {
             headerTitle: "Stonks Crypto",
             headerTitleStyle: {
               color: Colors.primary,
+              fontFamily: "CustomFontB",
             },
           }}
         />
@@ -130,11 +132,12 @@ const Home = () => {
           backgroundColor={Colors.background}
           labelColor={Colors.textMuted}
           labelStyle={{
-            fontFamily: "RubikReg",
+            fontFamily: "CustomFontR",
+            fontSize: 16,
           }}
           selectedLabelColor={Colors.textColor}
           selectedLabelStyle={{
-            fontFamily: "RubikReg",
+            fontFamily: "CustomFontR",
           }}
           spreadItems={false}
           indicatorStyle={{
@@ -173,11 +176,10 @@ const Home = () => {
                   filter === 0 ? Colors.mutedBackground : Colors.background
                 }
                 labelStyle={{
-                  fontWeight: filter === 0 ? "bold" : "300",
+                  color: filter === 0 ? Colors.textColor : Colors.textMuted,
                 }}
                 text90
                 marginV-5
-                textColor
               />
               <Button
                 label={"Price"}
@@ -188,11 +190,10 @@ const Home = () => {
                   filter === 1 ? Colors.mutedBackground : Colors.background
                 }
                 labelStyle={{
-                  fontWeight: filter === 1 ? "bold" : "300",
+                  color: filter === 1 ? Colors.textColor : Colors.textMuted,
                 }}
                 text90
                 marginV-5
-                textColor
               />
               <Button
                 label={"24H Change"}
@@ -203,11 +204,10 @@ const Home = () => {
                   filter === 2 ? Colors.mutedBackground : Colors.background
                 }
                 labelStyle={{
-                  fontWeight: filter === 2 ? "bold" : "300",
+                  color: filter === 2 ? Colors.textColor : Colors.textMuted,
                 }}
                 text90
                 marginV-5
-                textColor
               />
               {/* <Button lable={"Market Cap"} size={ButtonSize.small} />
               <Button lable={"Price"} size={ButtonSize.small} />

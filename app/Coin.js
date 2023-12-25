@@ -31,6 +31,8 @@ import { LineChart } from "react-native-wagmi-charts";
 import Chart from "../components/Chart";
 import useHistory from "../Helpers/Hooks/useHistory";
 
+import { FontAwesome } from "@expo/vector-icons";
+
 function invokeHaptic() {
   haptics.impactAsync(haptics.ImpactFeedbackStyle.Light);
 }
@@ -70,12 +72,17 @@ function formatDate({ value }) {
   // return "hehe";
 }
 
+import { Animated } from "react-native";
+// import { useAnimatedScrollHandler } from "react-native-reanimated";
+
 const Coin = () => {
   const params = useLocalSearchParams();
   const [coin, price] = useCoin(params);
   const [holdView, setHoldView] = useState(false);
   const [filter, setFilter] = useState(0);
   const history = useHistory({ coin, filter });
+  const [scrollY, setScrollY] = useState(0);
+  const translation = new Animated.Value(0);
 
   return (
     <View flex bg-background useSafeArea={true}>
@@ -88,15 +95,77 @@ const Coin = () => {
             backgroundColor: Colors.background,
           },
           headerTintColor: Colors.textMuted,
+          headerTitle: () => (
+            <Animated.View
+              style={{
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "relative",
+                //top: 45,
+                // top: 50 - (scrollY < 50 ? scrollY : 50),
+                transform: [
+                  {
+                    translateY: translation.interpolate({
+                      inputRange: [0, 105],
+                      outputRange: [45, 0],
+                      extrapolateRight: "clamp",
+                    }),
+                  },
+                ],
+              }}>
+              <Text textColor>{coin?.symbol}</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}>
+                <Text style={{ fontFamily: "CustomFontM" }} textColor>
+                  {formatCurrency(price)}
+                </Text>
+                <Text
+                  style={{
+                    color:
+                      history.change <= 0
+                        ? history.change == 0
+                          ? Colors.textMuted
+                          : Colors.negative
+                        : Colors.positive,
+                    fontFamily: "CustomFontR",
+                    marginLeft: 10,
+                  }}>
+                  {history.change <= 0
+                    ? formatNumber(history.change)
+                    : "+" + formatNumber(history.change)}
+                  {"%"}
+                </Text>
+              </View>
+            </Animated.View>
+          ),
+          headerTitleAlign: "center",
         }}
       />
-      <ScrollView>
+      <Animated.ScrollView
+        onScroll={(e) => {
+          translation.setValue(e.nativeEvent.contentOffset.y);
+        }}
+        scrollEventThrottle={16}
+        // onScroll={(e) => {
+        //   const y = e.nativeEvent.contentOffset.y;
+        //   //update only when then abs difference is greater than 10
+        //   // setScrollY((prev) => {
+        //   //   if (Math.abs(prev - y ?? 0) > 1) return y;
+        //   //   return prev;
+        //   // });
+        // }}>
+      >
         <LineChart.Provider data={history.history}>
           <View paddingH-18>
-            <Text textMuted marginB-15>
+            <Text textMuted marginB-5>
               {coin.symbol}
             </Text>
-            <Text text50 textColor>
+            <Text text26M textColor>
               {coin.name}
             </Text>
             {holdView ? (
@@ -104,10 +173,10 @@ const Coin = () => {
                 <LineChart.PriceText
                   style={{
                     color: Colors.textColor,
-                    lineHeight: 28,
-                    fontSize: 24,
-                    fontFamily: "RubikReg",
-                    fontWeight: "bold",
+                    // lineHeight: 28,
+                    fontSize: 26,
+                    fontFamily: "CustomFontM",
+                    fontWeight: "normal",
                   }}
                   format={({ value }) => {
                     "worklet";
@@ -124,7 +193,7 @@ const Coin = () => {
                 />
               </View>
             ) : (
-              <Text text50 marginT-4 textColor>
+              <Text text26M textColor>
                 {formatCurrency(price)}
               </Text>
             )}
@@ -353,11 +422,11 @@ const Coin = () => {
             backgroundColor={Colors.background}
             labelColor={Colors.textMuted}
             labelStyle={{
-              fontFamily: "RubikReg",
+              fontFamily: "CustomFontR",
             }}
             selectedLabelColor={Colors.textColor}
             selectedLabelStyle={{
-              fontFamily: "RubikReg",
+              fontFamily: "CustomFontR",
             }}
             spreadItems={false}
             indicatorStyle={{
@@ -376,20 +445,26 @@ const Coin = () => {
             <TabController.TabPage index={1}>
               <View style={styles.aboutRow} padding-15>
                 <Text textMuted>Rank</Text>
-                <Text>NO.{coin.rank}</Text>
+                <Text textColor text12M>
+                  NO.{coin.rank}
+                </Text>
               </View>
               <View style={styles.aboutRow} padding-15>
                 <Text textMuted>Market Cap</Text>
-                <Text>{formatCurrency(coin.marketCap, "compact")}</Text>
+                <Text textColor text12M>
+                  {formatCurrency(coin.marketCap, "compact")}
+                </Text>
               </View>
               <View style={styles.line}></View>
               <View style={styles.aboutRow} padding-15>
                 <Text textMuted>Tier</Text>
-                <Text>{coin.tier}</Text>
+                <Text textColor text12M>
+                  {coin.tier}
+                </Text>
               </View>
               <View style={styles.aboutRow} padding-15>
                 <Text textMuted>Circulating Supply</Text>
-                <Text>
+                <Text textColor text12M>
                   {formatNumber(coin?.supply?.circulating, "compact") +
                     " " +
                     coin.symbol}
@@ -397,7 +472,7 @@ const Coin = () => {
               </View>
               <View style={styles.aboutRow} padding-15>
                 <Text textMuted>Max Supply</Text>
-                <Text>
+                <Text textColor text12M>
                   {formatNumber(coin?.supply?.max, "compact") +
                     " " +
                     coin.symbol}
@@ -405,7 +480,7 @@ const Coin = () => {
               </View>
               <View style={styles.aboutRow} padding-15>
                 <Text textMuted>Total Supply</Text>
-                <Text>
+                <Text textColor text12M>
                   {formatNumber(coin?.supply?.total, "compact") +
                     " " +
                     coin.symbol}
@@ -413,7 +488,7 @@ const Coin = () => {
               </View>
               <View style={styles.aboutRow} padding-15>
                 <Text textMuted>Listed At</Text>
-                <Text>
+                <Text textColor text12M>
                   {new Date(coin?.listedAt * 1000).toLocaleDateString(
                     "en-IN",
                     {}
@@ -422,16 +497,20 @@ const Coin = () => {
               </View>
               <View style={styles.aboutRow} padding-15>
                 <Text textMuted>Exchanges</Text>
-                <Text>{coin.numberOfExchanges}</Text>
+                <Text textColor text12M>
+                  {coin.numberOfExchanges}
+                </Text>
               </View>
               <View style={styles.line}></View>
               <View style={styles.aboutRow} padding-15>
                 <Text textMuted>All Time High</Text>
-                <Text>{formatCurrencyUSD(coin.allTimeHigh?.price)}</Text>
+                <Text textColor text12M>
+                  {formatCurrencyUSD(coin.allTimeHigh?.price)}
+                </Text>
               </View>
               <View style={styles.aboutRow} padding-15>
                 <Text textMuted>All Time High At</Text>
-                <Text>
+                <Text textColor text12M>
                   {new Date(
                     coin.allTimeHigh?.timestamp * 1000
                   ).toLocaleDateString("en-IN") +
@@ -446,12 +525,14 @@ const Coin = () => {
                 <Text textMuted>Introduction</Text>
               </View>
               <View style={styles.aboutRow} paddingH-15 paddingB-15>
-                <Text text80>{coin?.description}</Text>
+                <Text textThin textColor>
+                  {coin?.description}
+                </Text>
               </View>
             </TabController.TabPage>
           </TabController.PageCarousel>
         </TabController>
-      </ScrollView>
+      </Animated.ScrollView>
     </View>
   );
 };

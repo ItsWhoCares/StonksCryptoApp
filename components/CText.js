@@ -7,7 +7,7 @@
 //     <Text
 //       style={[
 //         {
-//           fontFamily: "RubikReg",
+//           fontFamily: "CustomFontR",
 //         },
 //         style,
 //       ]}

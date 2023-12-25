@@ -22,7 +22,7 @@ export default function Layout() {
           tabBarInactiveTintColor: Colors.textMuted,
           headerShown: false,
           tabBarLabelStyle: {
-            fontFamily: "RubikReg",
+            fontFamily: "CustomFontR",
           },
 
           tabBarStyle: {

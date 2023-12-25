@@ -10,7 +10,6 @@ import { searchCoin } from "../Helpers/helpers";
 import SearchCoinItem from "../components/SearchCoinItem";
 
 import { FlashList } from "@shopify/flash-list";
-
 const Search = () => {
   const params = useLocalSearchParams();
   const [searchText, setSearchText] = useState("");

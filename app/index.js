@@ -39,7 +39,10 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   const [loaded, error] = useFonts({
-    RubikReg: require("../assets/fonts/Rubik-Medium.ttf"),
+    CustomFontL: require("../assets/fonts/IBMPlexSans-Light.ttf"),
+    CustomFontR: require("../assets/fonts/IBMPlexSans-Regular.ttf"),
+    CustomFontM: require("../assets/fonts/IBMPlexSans-Medium.ttf"),
+    CustomFontB: require("../assets/fonts/IBMPlexSans-Bold.ttf"),
     RubikLight: require("../assets/fonts/Rubik-Light.ttf"),
   });
 

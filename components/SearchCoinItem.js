@@ -58,7 +58,7 @@ const CoinItem = ({ coin }) => {
           <ListItem.Part containerStyle={{ marginBottom: 3 }}>
             <Text
               textColor
-              text70
+              textThick
               style={{ flex: 1, marginRight: 10, fontWeight: "bold" }}
               numberOfLines={1}>
               {coin.name}
@@ -80,7 +80,7 @@ const CoinItem = ({ coin }) => {
                 : "+" + formatNumber(coin.change)}
               {"%"}
             </Text> */}
-            <Text text70 textColor numberOfLines={1}>
+            <Text textThin textColor numberOfLines={1}>
               {formatCurrency(coin.price)}
             </Text>
           </ListItem.Part>
