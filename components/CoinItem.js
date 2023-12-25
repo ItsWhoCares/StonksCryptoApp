@@ -75,7 +75,8 @@ const CoinItem = ({ coin }) => {
                       ? Colors.textMuted
                       : Colors.negative
                     : Colors.positive,
-                fontWeight: "bold",
+                //fontWeight: "bold",
+                fontFamily: "CustomFontB",
               }}>
               {coin.change <= 0
                 ? formatNumber(coin.change)

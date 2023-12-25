@@ -207,7 +207,8 @@ const Coin = () => {
                       ? Colors.textMuted
                       : Colors.negative
                     : Colors.positive,
-                fontWeight: "bold",
+                //fontWeight: "bold",
+                fontFamily: "CustomFontB",
               }}>
               {history.change <= 0
                 ? formatNumber(history.change)

@@ -53,7 +53,7 @@ export default function Layout() {
             headerRight: () => (
               <AntDesign name="staro" size={24} color={Colors.textMuted} />
             ),
-            headerTitle: "hello",
+            headerTitle: "",
             headerTitleAlign: "center",
           }}
         />
@@ -67,6 +67,7 @@ export default function Layout() {
               elevation: 0,
               shadowOpacity: 0,
             },
+            headerTintColor: Colors.textMuted,
             headerShadowVisible: false,
             headerTitle: "Search Crypto",
             headerTitleAlign: "center",
@@ -76,14 +77,15 @@ export default function Layout() {
               fontSize: 18,
               fontFamily: "CustomFontB",
             },
-            headerLeft: () => (
-              <Ionicons
-                name="arrow-back"
-                size={24}
-                color={Colors.mutedIcon}
-                onPress={() => router.back()}
-              />
-            ),
+
+            // headerLeft: () => (
+            //   <Ionicons
+            //     name="arrow-back"
+            //     size={24}
+            //     color={Colors.mutedIcon}
+            //     onPress={() => router.back()}
+            //   />
+            // ),
           }}
         />
       </Stack>
