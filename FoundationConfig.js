@@ -23,7 +23,6 @@ Typography.loadTypographies({
   text90: {
     fontFamily: "CustomFontM",
     fontSize: 12,
-    fontWeight: "300",
   },
   text100: {
     fontFamily: "CustomFontM",

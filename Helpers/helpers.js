@@ -89,6 +89,36 @@ export const getTopCoins = async ({ orderBy }) => {
   }
 };
 
+export const getBookMarkedCoins = async (userID) => {
+  const { data, error } = await supabase
+    .from("bookmarks")
+    .select("*")
+    .eq("userID", userID);
+  if (error) {
+    console.log(error);
+    return;
+  }
+  //get coin info for each bookmark
+  const bookmarks = await Promise.all(
+    data.map(async (bookmark) => {
+      const res = await fetch(
+        `${process.env.EXPO_PUBLIC_API_URL}api/getCoinInfo?uuid=${bookmark.coinUUID}`
+      );
+      const coin = await res.json();
+      return {
+        ...bookmark,
+        uuid: coin.uuid,
+        price: coin.price,
+        symbol: coin.symbol,
+        name: coin.name,
+        change: coin.change,
+        iconUrl: coin.iconUrl,
+      };
+    })
+  );
+  return bookmarks;
+};
+
 export async function getBalance(userID) {
   //console.log(userID);
   const { data, error } = await supabase

@@ -14,6 +14,7 @@ import { SplashScreen, router } from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
+import BookmarkIcon from "../components/BookmarkIcon";
 
 export default function Layout() {
   useEffect(() => {
@@ -50,9 +51,7 @@ export default function Layout() {
           options={{
             animation: "fade_from_bottom",
             headerShown: false,
-            headerRight: () => (
-              <AntDesign name="staro" size={24} color={Colors.textMuted} />
-            ),
+            headerRight: () => <BookmarkIcon />,
             headerTitle: "",
             headerTitleAlign: "center",
           }}

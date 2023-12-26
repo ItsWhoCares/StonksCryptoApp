@@ -290,6 +290,7 @@ const Coin = () => {
                         const month = date.getUTCMonth() + 1;
                         const hour = date.getUTCHours();
                         const minutes = date.getUTCMinutes();
+                        const year = date.getUTCFullYear();
 
                         // Pad the day, month, hour, and minutes with zeros if necessary.
                         const paddedDay = day.toString().padStart(2, "0");
@@ -301,9 +302,13 @@ const Coin = () => {
                         const monthName = date.toLocaleDateString("en-US", {
                           month: "short",
                         });
+                        const lastTwoDigitsOfYear = year.toString().slice(-2);
                         // Return the formatted date and time string.
+                        if (filter == 4)
+                          return `${paddedDay}-${monthName}-${lastTwoDigitsOfYear}`;
                         if (filter > 1)
                           return `${paddedDay}-${monthName} ${paddedHour}:${paddedMinutes}`;
+
                         return `${paddedHour}:${paddedMinutes}`;
                       }}
                     />
@@ -336,10 +341,11 @@ const Coin = () => {
                   filter === 0 ? Colors.mutedBackground : Colors.background
                 }
                 labelStyle={{
-                  fontWeight: filter === 0 ? "bold" : "300",
+                  fontFamily: filter === 0 ? "CustomFontB" : "CustomFontM",
+                  fontSize: 12,
                   color: filter === 0 ? Colors.textColor : Colors.textMuted,
+                  lineHeight: 16,
                 }}
-                text90
                 marginV-5
                 avoidMinWidth
               />
@@ -352,10 +358,11 @@ const Coin = () => {
                   filter === 1 ? Colors.mutedBackground : Colors.background
                 }
                 labelStyle={{
-                  fontWeight: filter === 1 ? "bold" : "300",
+                  fontFamily: filter === 1 ? "CustomFontB" : "CustomFontM",
+                  fontSize: 12,
                   color: filter === 1 ? Colors.textColor : Colors.textMuted,
+                  lineHeight: 16,
                 }}
-                text90
                 marginV-5
                 avoidMinWidth
               />
@@ -368,10 +375,11 @@ const Coin = () => {
                   filter === 2 ? Colors.mutedBackground : Colors.background
                 }
                 labelStyle={{
-                  fontWeight: filter === 2 ? "bold" : "300",
+                  fontFamily: filter === 2 ? "CustomFontB" : "CustomFontM",
+                  fontSize: 12,
                   color: filter === 2 ? Colors.textColor : Colors.textMuted,
+                  lineHeight: 16,
                 }}
-                text90
                 marginV-5
                 avoidMinWidth
               />
@@ -384,10 +392,11 @@ const Coin = () => {
                   filter === 3 ? Colors.mutedBackground : Colors.background
                 }
                 labelStyle={{
-                  fontWeight: filter === 3 ? "bold" : "300",
+                  fontFamily: filter === 3 ? "CustomFontB" : "CustomFontM",
+                  fontSize: 12,
                   color: filter === 3 ? Colors.textColor : Colors.textMuted,
+                  lineHeight: 16,
                 }}
-                text90
                 marginV-5
                 avoidMinWidth
               />
@@ -400,10 +409,11 @@ const Coin = () => {
                   filter === 4 ? Colors.mutedBackground : Colors.background
                 }
                 labelStyle={{
-                  fontWeight: filter === 4 ? "bold" : "300",
+                  fontFamily: filter === 4 ? "CustomFontB" : "CustomFontM",
+                  fontSize: 12,
                   color: filter === 4 ? Colors.textColor : Colors.textMuted,
+                  lineHeight: 16,
                 }}
-                text90
                 marginV-5
                 avoidMinWidth
               />

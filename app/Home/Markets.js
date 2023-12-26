@@ -26,8 +26,13 @@ import { FlashList } from "@shopify/flash-list";
 import CoinItemSkeletion from "../../components/CoinItemSkeletion";
 import { Skeleton } from "@rneui/themed";
 import { Typography } from "react-native-ui-lib";
+import Watchlist from "../../components/Watchlist";
 
 const orderBy = ["marketCap", "price", "change"];
+
+const renderFlashItem = ({ item }) => {
+  return <CoinItem coin={item} />;
+};
 
 const Home = () => {
   const [coinList, setCoinList] = useState([]);
@@ -132,12 +137,13 @@ const Home = () => {
           backgroundColor={Colors.background}
           labelColor={Colors.textMuted}
           labelStyle={{
-            fontFamily: "CustomFontR",
+            fontFamily: "CustomFontM",
             fontSize: 16,
           }}
           selectedLabelColor={Colors.textColor}
           selectedLabelStyle={{
-            fontFamily: "CustomFontR",
+            fontFamily: "CustomFontM",
+            fontSize: 16,
           }}
           spreadItems={false}
           indicatorStyle={{
@@ -149,14 +155,7 @@ const Home = () => {
 
         <TabController.PageCarousel>
           <TabController.TabPage index={0}>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-              }}>
-              <Text>Your Watchlist is empty</Text>
-            </View>
+            <Watchlist />
             {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((a) => (
               <CoinItem key={a} />
             ))} */}
@@ -215,13 +214,13 @@ const Home = () => {
             </View>
             {!loading ? (
               <FlashList
+                drawDistance={200}
                 refreshing={loading}
                 onRefresh={() => fetchCoins()}
                 data={coinList}
-                renderItem={({ item }) => (
-                  <CoinItem key={item?.uuid} coin={item} />
-                )}
+                renderItem={renderFlashItem}
                 estimatedItemSize={100}
+                keyExtractor={(item) => item.uuid}
               />
             ) : (
               [1, 2, 3, 4, 5, 6, 7, 8, 9].map((a) => (

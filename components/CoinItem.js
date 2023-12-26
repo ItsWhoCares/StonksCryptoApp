@@ -15,7 +15,7 @@ const workers = [
 ];
 
 const CoinItem = ({ coin }) => {
-  const [u, setU] = useState(0);
+  //const [u, setU] = useState(0);
   // console.log(Typography.textThin);
   return (
     <View paddingH-5>

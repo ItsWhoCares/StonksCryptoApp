@@ -44,7 +44,7 @@ export default function useHistory({ coin, filter = 0 }) {
       getChart(coin.uuid, filter).then((r) => {
         setHistory(r);
       });
-      console.log(history.history[history.history.length - 1]);
+      //console.log(history.history[history.history.length - 1]);
     }, 30000);
     return () => clearInterval(iter);
   }, [filter]);
