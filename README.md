@@ -1,14 +1,13 @@
-# Expo Router Example
+# Stonks Crypto App
 
-Use [`expo-router`](https://expo.github.io/router) to build native navigation using files in the `app/` directory.
+Stonks Crypto App is a crypto trading simulator that allows you to buy, sell, and track your portfolio of virtual cryptocurrencies. It is built using React native and Supabase.
 
-## 🚀 How to use
-
-```sh
-npx create-expo-app -e with-router
-```
-
-## 📝 Notes
-
-- [Expo Router: Docs](https://expo.github.io/router)
-- [Expo Router: Repo](https://github.com/expo/router)
+<p align="center" width="100%">
+    <img width="33%" src="https://lhizcmwymlozpypgpvia.supabase.co/storage/v1/object/public/screenshots/Screenshot_20240101-144131_StonksCrypto.jpg">
+    <img width="33%" src="https://lhizcmwymlozpypgpvia.supabase.co/storage/v1/object/public/screenshots/Screenshot_20240101-144125_StonksCrypto.jpg">
+  <img width="33%" src="https://lhizcmwymlozpypgpvia.supabase.co/storage/v1/object/public/screenshots/Screenshot_20240101-144019_StonksCrypto.jpg">
+</p>
+<p align="center" width="100%">
+    <img width="33%" src="https://lhizcmwymlozpypgpvia.supabase.co/storage/v1/object/public/screenshots/Screenshot_20240101-144034_StonksCrypto.jpg">
+    <img width="33%" src="https://lhizcmwymlozpypgpvia.supabase.co/storage/v1/object/public/screenshots/Screenshot_20240101-144043_StonksCrypto.jpg">
+</p>
