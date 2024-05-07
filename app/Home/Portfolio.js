@@ -1,50 +1,99 @@
+import { Tabs } from "expo-router";
 import React from "react";
-import { Dimensions, View, Text, Colors } from "react-native-ui-lib";
-import * as haptics from "expo-haptics";
-import { LineChart } from "react-native-wagmi-charts";
-import { ScrollView } from "react-native";
-
-const data = [
-  { value: 2812319.3029655386, timestamp: 1698169500000 },
-  { value: 2816249.639762188, timestamp: 1698169200000 },
-  { value: 2814299.876975376, timestamp: 1698168900000 },
-  { value: 2823146.773718928, timestamp: 1698168600000 },
-  { value: 2817021.3670248417, timestamp: 1698168300000 },
-  { value: 2823531.891986371, timestamp: 1698168000000 },
-  { value: 2816896.5276166867, timestamp: 1698167700000 },
-  { value: 2824669.512563625, timestamp: 1698167400000 },
-  { value: 2823337.4698271593, timestamp: 1698167100000 },
-  { value: 2818700.6470459914, timestamp: 1698166800000 },
-  { value: 2824890.352240346, timestamp: 1698166500000 },
-  { value: 2821058.682604612, timestamp: 1698166200000 },
-  { value: 2828538.6076861825, timestamp: 1698165900000 },
-  { value: 2824653.70376702, timestamp: 1698165600000 },
-  { value: 2833937.2889853492, timestamp: 1698165300000 },
-  { value: 2808688.5650636735, timestamp: 1698165000000 },
-  { value: 2812766.3798904484, timestamp: 1698164700000 },
-  { value: 2811321.586207453, timestamp: 1698164400000 },
-  { value: 2811256.056814812, timestamp: 1698164100000 },
-  { value: 2808201.390325437, timestamp: 1698163800000 },
-  { value: 2798045.380426849, timestamp: 1698163500000 },
-];
-
-function invokeHaptic() {
-  haptics.impactAsync(haptics.ImpactFeedbackStyle.Light);
-}
+import {
+  Dimensions,
+  View,
+  Text,
+  Colors,
+  TabController,
+} from "react-native-ui-lib";
+import { useBalance, useUser } from "../../Helpers/supabase";
+import { formatCurrency } from "../../Helpers/helpers";
+import Assets from "../../components/Assets";
+import usePortfolio from "../../Helpers/Hooks/usePortfolio";
+import Stats from "../../components/Stats";
 
 const Portfolio = () => {
+  const balance = useBalance();
+  const user = useUser();
+  const [portfolio, refreshPortfolio] = usePortfolio(user);
   return (
-    <View flex bg-background padding-page>
-      <LineChart.Provider data={data}>
-        <LineChart>
-          <LineChart.Path color={Colors.positive}>
-            <LineChart.Gradient />
-          </LineChart.Path>
-          <LineChart.CursorLine />
-        </LineChart>
-        <LineChart.PriceText />
-        <LineChart.DatetimeText />
-      </LineChart.Provider>
+    <View flex bg-background>
+      <Tabs.Screen
+        options={{
+          title: "",
+          headerShown: true,
+          headerShadowVisible: false,
+          headerStyle: {
+            backgroundColor: Colors.background,
+          },
+          headerTintColor: Colors.textMuted,
+          headerTitle: () => {
+            return (
+              <View
+                bg-background
+                style={{
+                  display: "flex",
+                  minWidth: "100%",
+                  // backgroundColor: "red",
+                  // marginLeft: "auto",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}>
+                <Text primary fSB>
+                  Total Balance
+                </Text>
+                <Text textColor fSB>
+                  {formatCurrency(balance)}
+                </Text>
+              </View>
+            );
+          },
+        }}
+      />
+
+      <TabController
+        items={[{ label: "Stats" }, { label: "Assets" }]}
+        asCarousel
+        initialIndex={1}>
+        <TabController.TabBar
+          enableShadows
+          containerStyle={{
+            backgroundColor: Colors.background,
+          }}
+          backgroundColor={Colors.background}
+          labelColor={Colors.textMuted}
+          labelStyle={{
+            fontFamily: "CustomFontM",
+            fontSize: 16,
+          }}
+          selectedLabelColor={Colors.textColor}
+          selectedLabelStyle={{
+            fontFamily: "CustomFontM",
+            fontSize: 16,
+          }}
+          spreadItems={false}
+          indicatorStyle={{
+            backgroundColor: Colors.textColor,
+            height: 3,
+          }}
+          indicatorWidth={30}
+        />
+
+        <TabController.PageCarousel>
+          <TabController.TabPage index={0}>
+            <Stats portfolio={portfolio} />
+            {/* <Watchlist /> */}
+            {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((a) => (
+              <CoinItem key={a} />
+            ))} */}
+          </TabController.TabPage>
+          <TabController.TabPage index={1}>
+            <Assets portfolio={portfolio} refresh={refreshPortfolio} />
+          </TabController.TabPage>
+        </TabController.PageCarousel>
+      </TabController>
     </View>
   );
 };

@@ -8,6 +8,7 @@ import {
 } from "react-native-ui-lib";
 import React, { useEffect, useRef, useState } from "react";
 import {
+  router,
   Stack,
   useGlobalSearchParams,
   useLocalSearchParams,
@@ -544,6 +545,57 @@ const Coin = () => {
           </TabController.PageCarousel>
         </TabController>
       </Animated.ScrollView>
+      <View
+        style={{
+          flexDirection: "row",
+          margin: 15,
+        }}>
+        <View
+          style={{
+            flexDirection: "column",
+          }}>
+          <Text textColor fM>
+            0.000000000{" "}
+            <Text textColor h6>
+              {coin.symbol}
+            </Text>
+          </Text>
+          <Text textMuted>~ {formatCurrency(0)}</Text>
+        </View>
+        <Button
+          label={"Buy"}
+          onPress={() => {
+            router.push({
+              pathname: "/BuySell",
+              params: {
+                uuid: coin.uuid,
+                symbol: coin.symbol,
+                name: coin.name,
+                price: coin.price,
+                change: coin.change,
+              },
+            });
+          }}
+          backgroundColor={Colors.primary}
+          // margin-15
+          // paddingH-20
+          br100
+          style={{
+            // alignItems: "center",
+            // justifyContent: "center",
+            width: "35%",
+            marginLeft: "auto",
+          }}
+          labelStyle={{
+            fontFamily: "CustomFontB",
+            fontSize: 16,
+            color: Colors.background,
+
+            // lineHeight: 24,
+            textAlignVertical: "center",
+          }}
+        />
+      </View>
     </View>
   );
 };

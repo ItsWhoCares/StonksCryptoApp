@@ -76,6 +76,7 @@ export default function Layout() {
         <Tabs.Screen
           name="Portfolio"
           options={{
+            tabBarLabel: "Portfolio",
             tabBarIcon: ({ focused }) => (
               <FontAwesome5
                 name="wallet"

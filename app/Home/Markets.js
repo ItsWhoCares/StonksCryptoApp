@@ -208,9 +208,6 @@ const Home = () => {
                 text90
                 marginV-5
               />
-              {/* <Button lable={"Market Cap"} size={ButtonSize.small} />
-              <Button lable={"Price"} size={ButtonSize.small} />
-              <Button lable={"24H Change"} size={ButtonSize.small} /> */}
             </View>
             {!loading ? (
               <FlashList

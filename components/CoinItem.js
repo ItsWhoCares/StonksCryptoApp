@@ -17,6 +17,7 @@ const workers = [
 const CoinItem = ({ coin }) => {
   //const [u, setU] = useState(0);
   // console.log(Typography.textThin);
+  // console.log(coin.iconUrl);
   return (
     <View paddingH-5>
       <ListItem

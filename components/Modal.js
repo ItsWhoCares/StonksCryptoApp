@@ -42,14 +42,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22,
+    // marginTop: 22,
   },
   modalView: {
     margin: 20,
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.background,
     borderRadius: 20,
-    paddingVertical: 30,
-    paddingHorizontal: 35,
+    paddingVertical: 20,
+    paddingHorizontal: 30,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {

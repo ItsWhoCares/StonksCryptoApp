@@ -43,6 +43,7 @@ export default function App() {
     CustomFontR: require("../assets/fonts/IBMPlexSans-Regular.ttf"),
     CustomFontM: require("../assets/fonts/IBMPlexSans-Medium.ttf"),
     CustomFontB: require("../assets/fonts/IBMPlexSans-Bold.ttf"),
+    CustomFontSB: require("../assets/fonts/IBMPlexSans-SemiBold.ttf"),
     RubikLight: require("../assets/fonts/Rubik-Light.ttf"),
   });
 
@@ -50,7 +51,7 @@ export default function App() {
     try {
       supabase.auth.getSession().then(({ data: { session } }) => {
         if (session) {
-          router.replace("/Home");
+          router.replace("/Home/Portfolio");
         } else {
           console.log("no user");
         }
@@ -58,7 +59,7 @@ export default function App() {
 
       supabase.auth.onAuthStateChange((_event, session) => {
         if (session) {
-          router.replace("/Home");
+          router.replace("/Home/Portfolio");
         } else {
           console.log("no user listner");
           router.replace("/LogIn");

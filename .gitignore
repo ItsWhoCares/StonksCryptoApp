@@ -16,4 +16,6 @@ web-build/
 .env
 typo.json
 jsconfig.json
+backup.sql
+backup_public.sql
 ```

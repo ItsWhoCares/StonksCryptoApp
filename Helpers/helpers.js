@@ -1,7 +1,7 @@
 export const handleError = ({ title, message }) => {};
 import data from "./data.json";
 import dayjs from "dayjs";
-import { supabase } from "./supabase";
+import { supabase, useUser } from "./supabase";
 
 const REFERENCE_CURRENCY = "INR";
 
@@ -178,3 +178,94 @@ export const searchCoin = async (searchText) => {
   }
   return [];
 };
+
+export async function createBuyTransaction({
+  userID,
+  coinUUID,
+  coinPrice,
+  quantity,
+}) {
+  const { data, error } = await supabase.from("buy_transaction").insert([
+    {
+      userID,
+      coinUUID,
+      coinPrice,
+      quantity,
+    },
+  ]);
+  if (error) {
+    return { error: true, errorMsg: error.message };
+  }
+  return { data, error: false };
+}
+
+export async function buy({ coin, isINR, value, userID }, setMessage) {
+  if (!value || value.length == 0) return;
+  setMessage({
+    show: true,
+    message: "Processing...",
+  });
+  if (isINR) {
+    value = parseFloat(value);
+    const coinAmount = value / coin.price;
+    console.log(coinAmount);
+    const res = await createBuyTransaction({
+      userID,
+      coinUUID: coin.uuid,
+      coinPrice: coin.price,
+      quantity: coinAmount,
+    });
+    if (res.error) {
+      setMessage({
+        show: true,
+        error: true,
+        message: res.errorMsg,
+      });
+    } else {
+      setMessage({
+        show: true,
+        error: false,
+        message: "Transaction Successful",
+      });
+    }
+
+    return res;
+  }
+}
+
+export async function createSellTransaction({ buyID }) {
+  const userID = (await supabase.auth.getUser()).data.user.id;
+  if (!buyID) return { error: true, errorMsg: "Invalid buy ID" };
+  if (!userID) return { error: true, errorMsg: "Invalid user ID" };
+  //first get the buy transaction
+  const { data, error } = await supabase
+    .from("buy_transaction")
+    .select("*")
+    .eq("id", buyID);
+  if (error) {
+    return { error: true, errorMsg: error.message };
+  }
+  const buyTransaction = data[0];
+  //get the current price of the coin
+  const res = await fetch(
+    `${process.env.EXPO_PUBLIC_API_URL}/api/getCoinInfo?uuid=${buyTransaction.coinUUID}`
+  );
+  const coin = await res.json();
+  const currentPrice = coin.price;
+  //create sell transaction
+  const { data: data2, error: error2 } = await supabase
+    .from("sell_transaction")
+    .insert([
+      {
+        userID,
+        buyID,
+        coinUUID: buyTransaction.coinUUID,
+        coinPrice: currentPrice,
+        quantity: buyTransaction.quantity,
+      },
+    ]);
+  if (error2) {
+    return { error: true, errorMsg: error2.message };
+  }
+  return { data: data2, error: false };
+}

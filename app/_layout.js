@@ -87,6 +87,38 @@ export default function Layout() {
             // ),
           }}
         />
+
+        <Stack.Screen
+          name="BuySell"
+          options={{
+            animation: "slide_from_right",
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: Colors.background,
+              elevation: 0,
+              shadowOpacity: 0,
+            },
+            headerTintColor: Colors.textMuted,
+            headerShadowVisible: false,
+            headerTitle: "",
+            // headerTitleAlign: "center",
+
+            // headerTitleStyle: {
+            //   color: Colors.textColor,
+            //   fontSize: 18,
+            //   fontFamily: "CustomFontB",
+            // },
+
+            // headerLeft: () => (
+            //   <Ionicons
+            //     name="arrow-back"
+            //     size={24}
+            //     color={Colors.mutedIcon}
+            //     onPress={() => router.back()}
+            //   />
+            // ),
+          }}
+        />
       </Stack>
     </>
   );

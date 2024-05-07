@@ -64,6 +64,42 @@ Typography.loadTypographies({
     fontFamily: "CustomFontM",
     fontWeight: "normal",
   },
+
+  fM: {
+    // fontSize: 14,
+    fontFamily: "CustomFontM",
+    // fontWeight: "normal",
+  },
+  fR: {
+    // fontSize: 14,
+    fontFamily: "CustomFontR",
+    // fontWeight: "normal",
+  },
+  fB: {
+    // fontSize: 14,
+    fontFamily: "CustomFontB",
+    // fontWeight: "normal",
+  },
+  fL: {
+    // fontSize: 14,
+    fontFamily: "CustomFontL",
+    // fontWeight: "normal",
+  },
+  fSB: {
+    fontFamily: "CustomFontSB",
+  },
+  fRubik: {
+    // fontSize: 14,
+    fontFamily: "RubikLight",
+    // fontWeight: "normal",
+  },
+
+  h1: { fontSize: 32, fontWeight: "600" },
+  h2: { fontSize: 24, fontWeight: "600" },
+  h3: { fontSize: 20, fontWeight: "600" },
+  h4: { fontSize: 16, fontWeight: "600" },
+  h5: { fontSize: 12, fontWeight: "600" },
+  h6: { fontSize: 10, fontWeight: "600" },
 });
 
 Spacings.loadSpacings({

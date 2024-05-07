@@ -139,7 +139,7 @@ export default function LogIn() {
         onPress={() => router.replace("/SignUp")}
         marginT-80
         text70
-        mutedForeground
+        white
         highlightString={["Sign Up"]}
         highlightStyle={{
           color: Colors.primary,
