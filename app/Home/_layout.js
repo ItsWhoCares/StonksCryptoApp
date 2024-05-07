@@ -59,6 +59,7 @@ export default function Layout() {
         <Tabs.Screen
           name="Trade"
           options={{
+            href: null,
             tabBarIcon: ({ focused }) => (
               <Fontisto
                 name="arrow-swap"

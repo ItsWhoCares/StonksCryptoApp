@@ -51,7 +51,7 @@ export default function App() {
     try {
       supabase.auth.getSession().then(({ data: { session } }) => {
         if (session) {
-          router.replace("/Home/Portfolio");
+          router.replace("/Home");
         } else {
           console.log("no user");
         }
@@ -59,7 +59,7 @@ export default function App() {
 
       supabase.auth.onAuthStateChange((_event, session) => {
         if (session) {
-          router.replace("/Home/Portfolio");
+          router.replace("/Home");
         } else {
           console.log("no user listner");
           router.replace("/LogIn");

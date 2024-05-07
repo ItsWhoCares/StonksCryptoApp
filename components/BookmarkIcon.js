@@ -57,7 +57,7 @@ const BookmarkIcon = () => {
       <AntDesign
         name={isBookmarked ? "star" : "staro"}
         size={24}
-        color={Colors.textMuted}
+        color={isBookmarked ? Colors.primary : Colors.textMuted}
       />
     </TouchableOpacity>
   );

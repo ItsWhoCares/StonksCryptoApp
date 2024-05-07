@@ -117,6 +117,7 @@ const Home = () => {
             style={{ marginLeft: 10 }}
           />
           <AntDesign
+            onPress={() => router.push("/Home/Portfolio")}
             name="arrowright"
             size={24}
             color={Colors.textColor}
