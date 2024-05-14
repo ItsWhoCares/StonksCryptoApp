@@ -4,11 +4,11 @@
     "slug": "StonksCryptoApp",
     "version": "1.1.0",
     "orientation": "portrait",
-    "icon": "./assets/logo1024.png",
+    "icon": "./assets/adaptiveIcon.png",
     "userInterfaceStyle": "light",
     "scheme": "your-app-scheme",
     "splash": {
-      "image": "./assets/logo1024.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#202630"
     },
@@ -22,8 +22,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/adaptiveIcon.png",
+        "backgroundColor": "#202630"
       },
       "package": "com.whocares.StonksCryptoApp"
     },

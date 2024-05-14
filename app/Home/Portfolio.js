@@ -12,9 +12,10 @@ import { formatCurrency } from "../../Helpers/helpers";
 import Assets from "../../components/Assets";
 import usePortfolio from "../../Helpers/Hooks/usePortfolio";
 import Stats from "../../components/Stats";
+import { Skeleton } from "@rneui/base";
 
 const Portfolio = () => {
-  const balance = useBalance();
+  const balance = useBalance(null);
   const user = useUser();
   const [portfolio, refreshPortfolio] = usePortfolio(user);
   return (
@@ -44,16 +45,34 @@ const Portfolio = () => {
                 <Text primary fSB>
                   Total Balance
                 </Text>
-                <Text textColor fSB>
-                  {formatCurrency(balance)}
-                </Text>
+                {balance == null ? (
+                  <Skeleton
+                    width={100}
+                    height={22}
+                    animation="wave"
+                    style={{
+                      backgroundColor: Colors.mutedBackground,
+                      // height: 23,
+                      // marginTop: 3,
+                      borderRadius: 10,
+                    }}
+                    skeletonStyle={{
+                      backgroundColor: Colors.mutedShadow,
+                    }}
+                  />
+                ) : (
+                  <Text textColor fSB>
+                    {formatCurrency(balance)}
+                  </Text>
+                )}
               </View>
             );
           },
         }}
       />
 
-      <TabController
+      <Assets portfolio={portfolio} refresh={refreshPortfolio} />
+      {/* <TabController
         items={[{ label: "Stats" }, { label: "Assets" }]}
         asCarousel
         initialIndex={1}>
@@ -85,15 +104,15 @@ const Portfolio = () => {
           <TabController.TabPage index={0}>
             <Stats portfolio={portfolio} />
             {/* <Watchlist /> */}
-            {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((a) => (
+      {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((a) => (
               <CoinItem key={a} />
-            ))} */}
+            ))} }
           </TabController.TabPage>
           <TabController.TabPage index={1}>
-            <Assets portfolio={portfolio} refresh={refreshPortfolio} />
+            {/* <Assets portfolio={portfolio} refresh={refreshPortfolio} /> }
           </TabController.TabPage>
         </TabController.PageCarousel>
-      </TabController>
+      </TabController> */}
     </View>
   );
 };

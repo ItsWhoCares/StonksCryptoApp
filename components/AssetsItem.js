@@ -80,10 +80,10 @@ const AssetsItem = ({ item }) => {
           </View>
         </View>
         <View>
-          <Text center textColor h5>
+          <Text center textColor h5 fSB>
             {formatCurrency(item.holdings.currentValue)}
           </Text>
-          <Text center h5 textMuted>
+          <Text center h5 textMuted fR>
             {formatNumber(item.holdings.quantity)}
             {"  " + item.symbol}
           </Text>

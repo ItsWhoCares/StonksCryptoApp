@@ -9,11 +9,13 @@ import {
   Image,
 } from "react-native-ui-lib";
 import React from "react";
-import { StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { formatCurrency, formatNumber } from "../Helpers/helpers";
 import { FlashList } from "@shopify/flash-list";
 import { SvgUri } from "react-native-svg";
 import AssetsItem from "./AssetsItem";
+import { Skeleton } from "@rneui/base";
+import AssetsItemSkeleton from "./AssetsItemSkeleton";
 
 const Assets = ({ portfolio, refresh }) => {
   // console.log(portfolio);
@@ -24,7 +26,16 @@ const Assets = ({ portfolio, refresh }) => {
       setLoading(false);
     });
   }, [refresh]);
-  if (portfolio.length === 0) return <Text>No assets</Text>;
+  if (portfolio.length === 0)
+    return (
+      <View flex bg-background padding-card>
+        <FlatList
+          data={[1, 2, 3, 4, 5]}
+          renderItem={() => <AssetsItemSkeleton />}
+          keyExtractor={(item) => item}
+        />
+      </View>
+    );
   return (
     <View flex bg-background padding-card>
       <FlashList

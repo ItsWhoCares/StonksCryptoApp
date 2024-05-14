@@ -36,6 +36,7 @@ export default function Layout() {
         <Tabs.Screen
           name="Markets"
           options={{
+            lazy: false,
             tabBarIcon: ({ focused }) => (
               <Feather
                 name="bar-chart-2"
@@ -77,6 +78,7 @@ export default function Layout() {
         <Tabs.Screen
           name="Portfolio"
           options={{
+            lazy: false,
             tabBarLabel: "Portfolio",
             tabBarIcon: ({ focused }) => (
               <FontAwesome5
