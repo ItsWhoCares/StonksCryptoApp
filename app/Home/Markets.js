@@ -117,7 +117,7 @@ const Home = () => {
             style={{ marginLeft: 10 }}
           />
           <AntDesign
-            onPress={() => router.push("/Home/Portfolio")}
+            onPress={() => supabase.auth.signOut()}
             name="arrowright"
             size={24}
             color={Colors.textColor}

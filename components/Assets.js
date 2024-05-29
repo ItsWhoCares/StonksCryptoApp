@@ -26,6 +26,14 @@ const Assets = ({ portfolio, refresh }) => {
       setLoading(false);
     });
   }, [refresh]);
+  if (portfolio == null)
+    return (
+      <View flex bg-background padding-card center>
+        <Text textColor center>
+          Portfolio is empty
+        </Text>
+      </View>
+    );
   if (portfolio.length === 0)
     return (
       <View flex bg-background padding-card>

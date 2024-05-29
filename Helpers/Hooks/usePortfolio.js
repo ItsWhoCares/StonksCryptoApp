@@ -43,18 +43,19 @@ export async function getPortfolio(userID) {
 }
 
 const usePortfolio = (user) => {
-  const [portfolio, setPortfolio] = useState([]);
+  const [portfolio, setPortfolio] = useState(null);
 
   const refreshPortfolio = async () => {
     if (!user) return;
     const portfolio = await getPortfolio(user.id);
+    if (portfolio.length === 0) return setPortfolio(null);
     setPortfolio(portfolio);
   };
 
   useEffect(() => {
     if (!user) return;
     getPortfolio(user.id).then((portfolio) => {
-      console.log(portfolio.length);
+      if (portfolio.length === 0) return setPortfolio(null);
       setPortfolio(portfolio);
     });
   }, [user]);

@@ -30,8 +30,8 @@ import {
 import Modal from "../components/Modal";
 
 export default function LogIn() {
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+  const [email, setEmail] = useState("guest@gmail.com");
+  const [pass, setPass] = useState("password");
   const [isError, setIsError] = useState(null);
   const [loading, setLoading] = useState(false);
   return (
@@ -97,6 +97,7 @@ export default function LogIn() {
           color: Colors.background,
           paddingVertical: 10,
         }}
+        value={email}
         onChangeText={(value) => setEmail(value)}
         placeholder="m@example.com"
         placeholderTextColor={Colors.textMuted}
@@ -111,6 +112,7 @@ export default function LogIn() {
           color: Colors.background,
           paddingVertical: 10,
         }}
+        value={pass}
         placeholder=""
         placeholderTextColor={Colors.textMuted}
         fieldStyle={styles.withFrame}

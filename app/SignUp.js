@@ -7,12 +7,7 @@ import "../ComponentConfig";
 import React, { useState } from "react";
 import {
   View,
-  background,
   Button,
-  LoaderScreen,
-  SafeAreaSpacerView,
-  Icon,
-  TextField,
   Text,
 } from "react-native-ui-lib";
 
@@ -23,7 +18,7 @@ import { Link, Stack, router } from "expo-router";
 import { handleSignUp } from "../Helpers/authHelpers";
 import Modal from "../components/Modal";
 import { Toast } from "react-native-ui-lib/src/incubator";
-
+import TextField from "../components/TextField";
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
